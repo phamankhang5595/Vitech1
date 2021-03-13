@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2021
- * Team, JSC.
+ * Vitech Solutions
  * All Rights Reserved
  *
  *
