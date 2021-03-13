@@ -1,0 +1,12 @@
+".\Objects\STARTUP.obj",
+".\Objects\main.obj",
+".\Objects\motor.obj",
+".\Objects\relay.obj",
+".\Objects\uart.obj",
+".\Objects\delay.obj",
+".\Objects\pwm.obj",
+".\Objects\timer.obj",
+".\Objects\queue.obj" 
+TO ".\Objects\motor_test" 
+PRINT(".\Listings\motor_test.m51") RAMSIZE(256) 
+CODE( 0X0000-0X47FF )
