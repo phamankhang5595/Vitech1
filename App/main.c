@@ -62,7 +62,7 @@ void main(void)
     RELAY_AC(1);
     delay_ms(1000);
     MOTOR_Init(15000);
-//    QUEUE_Init(&CommandQueue, CommandBuff, QueueSize, sizeof(u8));
+//    QUEUE_Init(&CommandQueue, CommandBuff, QueueSize, sizeof(u8)); //
 //    //uart init
 //    UART_Init(1200);
 //    UART_CallBackInit(handleUart);
