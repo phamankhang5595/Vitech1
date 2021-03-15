@@ -20,35 +20,46 @@
 #include "delay.h"
 /**
  * @func   PWM_Init
- * @brief  None
- * @param  
+ * @brief  Inti PWM2 : Pin1.0, Fpwm=1Mhz, PWM Freq = 1KHz
+ *         Imdependnt mode, edge type
+ * @param  None
  * @retval None
  */
 void PWM_Init (void)
 {
+/*     P10_Quasi_Mode;
     PIOCON0 |= (1 << 2);    // P10 is pin PWM output
     PWMCON0 |= (1 << 4);    // Clear PWM 16BIT COUNTER
     PWM_IMDEPENDENT_MODE;
-    PWM_CLOCK_DIV_16;
+    PWM_CLOCK_DIV_16; */
+    PWM2_P10_OUTPUT_ENABLE;
+    PWM_IMDEPENDENT_MODE;
+    PWM_EDGE_TYPE;
+    set_CLRPWM;                 /* Clear PWM 16 bit counter */
+    PWM_CLOCK_FSYS;             /* 16MHz */
+    PWM_CLOCK_DIV_16;            /* Fpwm = 1MHz */
+    PWM_OUTPUT_ALL_NORMAL;
+    /* Set frequency */
+    PWMPH = 0x03;               /* PWM freq = Fpwm/((PWMPH,PWMPL)+1) = 1MHz/1000 =1kHz*/
+    PWMPL = 0xE8;
 }
     
 
 /**
- * @func   PWM_CreatedPeriodDuty
+ * @func   PWM_SetPercentDuty
  * @brief  None
  * @param  
  * @retval None
  */
-void PWM_CreatedPeriodDuty (uint16_t pwmDuty)
+void PWM_SetDuty (uint16_t pwmDuty)
 {
-    uint16_t vruiPwmDuty;
-    PWMCON0 &= ~(1 << 7);
-    vruiPwmDuty = (uint16_t) pwmDuty;
-    PWMPH = 0x00;
-	PWMPL = 0x42;   //15khz
-    PWM2H = vruiPwmDuty >> 8; // DUTY 
-    PWM2L = (vruiPwmDuty - PWM1H*256);
-    PWMCON0 |= (1 << 7); // Start run
+    /* stop pwm */
+    clr_PWMRUN;
+    PWM2H = (uint8_t)((pwmDuty & 0xFF00) >> 8);
+    PWM2L = (uint8_t)(pwmDuty & 0x00FF);
+    set_LOAD;
+    while(LOAD);
+    set_PWMRUN;
 }
 
 /**
@@ -59,11 +70,11 @@ void PWM_CreatedPeriodDuty (uint16_t pwmDuty)
  */
 void PWM_Stop(uint16_t pwmDuty)
 {
-    uint16_t i;
-    for(i = pwmDuty; i <= 15000; i=i+100)
+    uint8_t i;
+    for(i = pwmDuty; i < PWM_MaxDuty; i=i+10)
     {
-        PWM_CreatedPeriodDuty(i);
-        delay_ms(100);          
+        PWM_SetDuty(i);
+        delay_ms(20);
     }
 }
 
@@ -76,10 +87,9 @@ void PWM_Stop(uint16_t pwmDuty)
 void PWM_Start(uint16_t pwmDuty)
 {
     uint16_t i;
-    for(i = 15000; i > pwmDuty; i=i-100)
+    for(i = 500; i > pwmDuty; i=i-10)
     {
-        PWM_CreatedPeriodDuty(i);
-        delay_ms(100);          
+        PWM_SetDuty(i);
+        delay_ms(20);          
     }
-
 }

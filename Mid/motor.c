@@ -34,7 +34,7 @@ void MOTOR_Config(void)
 void MOTOR_Init(uint16_t defaultDuty)
 {
     PWM_Init();
-    PWM_CreatedPeriodDuty(defaultDuty);
+    PWM_SetDuty(defaultDuty);
 }
 /**
  * @func    MOTOR_GetCurrentSpeed
@@ -54,19 +54,19 @@ uint16_t MOTOR_GetCurrentSpeed(u8 revSpeed)
 void MOTOR_SetSpeed(uint16_t currentDuty, uint16_t desireDuty)
 {
     uint16_t i = 0;
-    if(currentDuty >= desireDuty)
+    if(currentDuty > desireDuty)
     {
         for(i = currentDuty; i > desireDuty; i--)
         {
-            PWM_CreatedPeriodDuty(i);
-            delay_ms(10);
+            PWM_SetDuty(i);
+            delay_ms(20);
         }
     }else
     {
-        for(i = currentDuty; i <= desireDuty; i++)
+        for(i = currentDuty; i < desireDuty; i++)
         {
-            PWM_CreatedPeriodDuty(i);
-            delay_ms(10);
+            PWM_SetDuty(i);
+            delay_ms(20);
         }
     }
 }

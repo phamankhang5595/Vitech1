@@ -24,9 +24,7 @@
 /*******************************************************************************
  * Definition
  ******************************************************************************/
-/**/
-#define DEFAULTDUTY    15000
-#define DEFAULTSPEED   13500
+
 /* Command */
 #define START_RUN    0x01
 #define STOP_RUN     0x02
@@ -61,21 +59,16 @@ void main(void)
     RELAY_Config();
     RELAY_AC(1);
     delay_ms(1000);
-    MOTOR_Init(15000);
-//    QUEUE_Init(&CommandQueue, CommandBuff, QueueSize, sizeof(u8)); //
-//    //uart init
-//    UART_Init(1200);
-//    UART_CallBackInit(handleUart);
-//    ENABLE_AllInterrupt();
-//    UART_Enable();
-      
-//    MOTOR_SetSpeed(DEFAULTSPEED, DEFAULTDUTY);
+    MOTOR_Init(850);
+    QUEUE_Init(&CommandQueue, CommandBuff, QueueSize, sizeof(u8)); //
+    //uart init
+    UART_Init(1200);
+    UART_CallBackInit(handleUart);
+    ENABLE_AllInterrupt();
+    UART_Enable();
 //    currentDuty = DEFAULTDUTY;
     while(1)
     {
-        //
-        MOTOR_SetSpeed(15000, 10000);
-        MOTOR_SetSpeed(10000, 15000);
 //        if(!QUEUE_Empty(&CommandQueue))
 //        {
 //            QUEUE_Get(&CommandQueue,&buffer);
@@ -90,22 +83,23 @@ void main(void)
 //                    currentDuty = DEFAULTDUTY;
 //                    break;
 //                case SPEED_UP:
-//                    if(currentDuty>8000)
+//                    if(currentDuty>50)
 //                    {
-//                        MOTOR_SetSpeed(currentDuty,currentDuty-500);
-//                        currentDuty -= 500;
+//                        MOTOR_SetSpeed(currentDuty,currentDuty-50);
+//                        currentDuty -= 50;
 //                    }
 //                    break;
 //                case SPEED_DOWN:
-//                    if(currentDuty<15000)
+//                    if(currentDuty<500)
 //                    {
-//                        MOTOR_SetSpeed(currentDuty,currentDuty+500);
-//                        currentDuty += 500;
+//                        MOTOR_SetSpeed(currentDuty,currentDuty+50);
+//                        currentDuty += 50;
 //                    }
 //                    break;
 //                default: 
 //                    break;
 //            }
 //        } 
+//    }
     }
 }
