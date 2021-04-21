@@ -31,8 +31,8 @@ void UART_Init (uint32_t baudRate) //use timer3 as Baudrate generator
     P07_Quasi_Mode;        //Setting UART pin as Quasi mode for transmit    
 
     //#ifdef FOSC_160000
-        RH3    = HIBYTE(65536 - (1000000/baudRate)-1);          /*16 MHz */
-        RL3    = LOBYTE(65536 - (1000000/baudRate)-1);            /*16 MHz */
+    RH3    = HIBYTE(65536 - (1000000/baudRate)-1);          /*16 MHz */
+    RL3    = LOBYTE(65536 - (1000000/baudRate)-1);            /*16 MHz */
     //#endif
 //    #ifdef FOSC_166000
 //        RH3    = HIBYTE(65536 - (1037500/baudRate));              /*16.6 MHz */
@@ -78,9 +78,9 @@ void UART_Disable(void)
  */
 void UART_SendByte (u8 byte)
 {
-	  u8 byteReverse;
+	u8 byteReverse;
     TI = 0;
-	  byteReverse = byte^0xFF;
+	byteReverse = byte^0xFF;
     SBUF = byte;
     while(TI==0);
 }

@@ -2,10 +2,13 @@
 ".\Objects\main.obj",
 ".\Objects\motor.obj",
 ".\Objects\relay.obj",
+".\Objects\floor.obj",
 ".\Objects\delay.obj",
 ".\Objects\pwm.obj",
 ".\Objects\timer.obj",
 ".\Objects\uart.obj",
+".\Objects\gpio.obj",
+".\Objects\adc.obj",
 ".\Objects\queue.obj" 
 TO ".\Objects\motor_test" 
 PRINT(".\Listings\motor_test.m51") RAMSIZE(256) 

@@ -416,6 +416,16 @@
               <FileType>5</FileType>
               <FilePath>..\Mid\relay.h</FilePath>
             </File>
+            <File>
+              <FileName>floor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Mid\floor.c</FilePath>
+            </File>
+            <File>
+              <FileName>floor.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Mid\floor.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -460,6 +470,26 @@
               <FileName>uart.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\Driver\uart.h</FilePath>
+            </File>
+            <File>
+              <FileName>gpio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Driver\gpio.c</FilePath>
+            </File>
+            <File>
+              <FileName>gpio.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Driver\gpio.h</FilePath>
+            </File>
+            <File>
+              <FileName>adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Driver\adc.c</FilePath>
+            </File>
+            <File>
+              <FileName>adc.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Driver\adc.h</FilePath>
             </File>
           </Files>
         </Group>

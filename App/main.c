@@ -21,9 +21,13 @@
 #include "motor.h"
 #include "pwm.h"
 #include "queue.h"
+#include "adc.h"
 /*******************************************************************************
  * Definition
  ******************************************************************************/
+
+uint16_t topLimitFloor;
+uint16_t botLimitFloor;
 
 /* Command */
 #define START_RUN    0x01
@@ -50,56 +54,22 @@ void handleUart(void)
 
 void main(void)
 {
-    uint8_t buffer;
-    uint16_t currentDuty = DEFAULTDUTY;
-    //delay_ms(10000);
-    //p10 gpio
-    MOTOR_Config();
-    delay_ms(1000);
-    RELAY_Config();
-    RELAY_AC(1);
-    delay_ms(1000);
-    MOTOR_Init(850);
-    QUEUE_Init(&CommandQueue, CommandBuff, QueueSize, sizeof(u8)); //
-    //uart init
-    UART_Init(1200);
-    UART_CallBackInit(handleUart);
-    ENABLE_AllInterrupt();
-    UART_Enable();
-//    currentDuty = DEFAULTDUTY;
+    uint16_t convert;
+    char ch;
+		// MOTOR_Config();
+    // delay_ms(1000);
+    // RELAY_Config();
+    // RELAY_AC(1);         
+    // delay_ms(1000);
+    // MOTOR_Init(120);
     while(1)
     {
-//        if(!QUEUE_Empty(&CommandQueue))
-//        {
-//            QUEUE_Get(&CommandQueue,&buffer);
-//            switch (buffer)
-//            {
-//                case START_RUN:
-//                    MOTOR_SetSpeed(currentDuty,DEFAULTSPEED);
-//                    currentDuty = DEFAULTSPEED;
-//                    break;
-//                case STOP_RUN:
-//                    MOTOR_SetSpeed(currentDuty,DEFAULTDUTY);
-//                    currentDuty = DEFAULTDUTY;
-//                    break;
-//                case SPEED_UP:
-//                    if(currentDuty>50)
-//                    {
-//                        MOTOR_SetSpeed(currentDuty,currentDuty-50);
-//                        currentDuty -= 50;
-//                    }
-//                    break;
-//                case SPEED_DOWN:
-//                    if(currentDuty<500)
-//                    {
-//                        MOTOR_SetSpeed(currentDuty,currentDuty+50);
-//                        currentDuty += 50;
-//                    }
-//                    break;
-//                default: 
-//                    break;
-//            }
-//        } 
-//    }
+			  //MOTOR_SetSpeed(120,120);
+        // MOTOR_SetSpeed(120,50);
+        // delay_ms(500);
+        // MOTOR_SetSpeed(50,10);
+        // delay_ms(500);
+        // MOTOR_SetSpeed(10,120);
+        // delay_ms(500);
     }
 }

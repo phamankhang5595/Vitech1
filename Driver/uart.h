@@ -39,7 +39,7 @@ void UART_Enable(void);
 void UART_Disable(void);
 void UART_SendByte (u8 byte);
 void UART_SendData (u8* buff, u8 length);
-u8 UART_RevData (void);
+u8   UART_RevData (void);
 void MODIFY_Hirc166(void);
 void UART_CallBackInit(type_UartCallBackFnc uartCallBackFnc);
 

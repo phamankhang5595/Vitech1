@@ -27,24 +27,24 @@
  */
 void PWM_Init (void)
 {
-/*     P10_Quasi_Mode;
+/*  
     PIOCON0 |= (1 << 2);    // P10 is pin PWM output
     PWMCON0 |= (1 << 4);    // Clear PWM 16BIT COUNTER
     PWM_IMDEPENDENT_MODE;
     PWM_CLOCK_DIV_16; */
+	P10_Quasi_Mode;
     PWM2_P10_OUTPUT_ENABLE;
     PWM_IMDEPENDENT_MODE;
     PWM_EDGE_TYPE;
     set_CLRPWM;                 /* Clear PWM 16 bit counter */
     PWM_CLOCK_FSYS;             /* 16MHz */
-    PWM_CLOCK_DIV_16;            /* Fpwm = 1MHz */
+    PWM_CLOCK_DIV_8;            /* Fpwm = 1MHz */
     PWM_OUTPUT_ALL_NORMAL;
     /* Set frequency */
-    PWMPH = 0x03;               /* PWM freq = Fpwm/((PWMPH,PWMPL)+1) = 1MHz/1000 =1kHz*/
-    PWMPL = 0xE8;
-}
+    PWMPH = 0x00;               /* PWM freq = Fpwm/((PWMPH,PWMPL)+1) = 1MHz/1000 =1kHz*/
+    PWMPL = 0x85;
     
-
+}
 /**
  * @func   PWM_SetPercentDuty
  * @brief  None
@@ -58,7 +58,6 @@ void PWM_SetDuty (uint16_t pwmDuty)
     PWM2H = (uint8_t)((pwmDuty & 0xFF00) >> 8);
     PWM2L = (uint8_t)(pwmDuty & 0x00FF);
     set_LOAD;
-    while(LOAD);
     set_PWMRUN;
 }
 
@@ -90,6 +89,6 @@ void PWM_Start(uint16_t pwmDuty)
     for(i = 500; i > pwmDuty; i=i-10)
     {
         PWM_SetDuty(i);
-        delay_ms(20);          
+        delay_ms(20);
     }
 }
