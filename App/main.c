@@ -21,13 +21,14 @@
 #include "motor.h"
 #include "pwm.h"
 #include "queue.h"
+#include "floor.h"
 #include "adc.h"
 /*******************************************************************************
  * Definition
  ******************************************************************************/
 
-uint16_t topLimitFloor;
-uint16_t botLimitFloor;
+uint16_t topLimitFloor = 3583;
+uint16_t botLimitFloor = 2;
 
 /* Command */
 #define START_RUN    0x01
@@ -47,29 +48,39 @@ unsigned int currentDuty=DEFAULTDUTY;
 
 void handleUart(void)
 {
-   static u8 revByte = 0;
-   revByte = UART_RevData();
-   QUEUE_Push(&CommandQueue,&revByte);
+    static u8 revByte = 0;
+    revByte = UART_RevData();
+    QUEUE_Push(&CommandQueue,&revByte);
 }
 
 void main(void)
 {
     uint16_t convert;
     char ch;
-		// MOTOR_Config();
+    UART_Init(1200);
+    ENABLE_AllInterrupt();
+    init_ADC();
+    floor_UpDown(2);
+    //botLimitFloor = resultConvert();
+    
+    // MOTOR_Config();
     // delay_ms(1000);
     // RELAY_Config();
-    // RELAY_AC(1);         
+    // RELAY_AC(1);
     // delay_ms(1000);
     // MOTOR_Init(120);
+
     while(1)
     {
-			  //MOTOR_SetSpeed(120,120);
+        //MOTOR_SetSpeed(120,120);
         // MOTOR_SetSpeed(120,50);
         // delay_ms(500);
         // MOTOR_SetSpeed(50,10);
         // delay_ms(500);
         // MOTOR_SetSpeed(10,120);
         // delay_ms(500);
+        
+        UART_SendByte('h');
+        delay_ms(500);
     }
 }

@@ -28,11 +28,13 @@ Project File Date:  04/21/2021
 Rebuild target 'Target 1'
 assembling STARTUP.A51...
 compiling main.c...
-..\App\main.c(57): warning C280: 'convert': unreferenced local variable
-..\App\main.c(58): warning C280: 'ch': unreferenced local variable
+..\App\main.c(58): warning C280: 'convert': unreferenced local variable
+..\App\main.c(59): warning C280: 'ch': unreferenced local variable
 compiling motor.c...
 compiling relay.c...
 compiling floor.c...
+..\Mid\floor.c(100): warning C280: 'desireIncl': unreferenced local variable
+..\Mid\floor.c(103): warning C290: missing return value
 compiling delay.c...
 compiling pwm.c...
 compiling timer.c...
@@ -56,10 +58,6 @@ linking...
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_RELAY_AC?RELAY
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?RELAY_DOWN?RELAY
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_FLOOR_UP?FLOOR
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_FLOOR_DOWN?FLOOR
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_PWM_STOP?PWM
@@ -72,8 +70,6 @@ linking...
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_TIMER_ENABLE?TIMER
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_UART_INIT?UART
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?UART_ENABLE?UART
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_UART_SENDDATA?UART
@@ -84,16 +80,14 @@ linking...
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?GPIO_INIT?GPIO
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?INIT_ADC?ADC
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_QUEUE_INIT?QUEUE
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_QUEUE_GET?QUEUE
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_QUEUE_EMPTY?QUEUE
-Program Size: data=9.0 xdata=174 code=5527
+Program Size: data=9.0 xdata=177 code=5801
 creating hex file from ".\Objects\motor_test"...
-".\Objects\motor_test" - 0 Error(s), 27 Warning(s).
+".\Objects\motor_test" - 0 Error(s), 25 Warning(s).
 Build Time Elapsed:  00:00:02
 </pre>
 </body>

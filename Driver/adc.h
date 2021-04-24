@@ -2,6 +2,5 @@
 #define _ADC_H_
 
 void init_ADC();
-void enable_ADC();
-uint16_t resultConvert();
+uint16_t readResultConvert();
 #endif  /* _ADC_H_*/

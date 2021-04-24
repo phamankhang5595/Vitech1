@@ -12,17 +12,21 @@ void init_ADC()
     AINDIDS |= (1<<0);
 }
 
-void enable_ADC()
+static void enable_ADC()
 {
+    clr_ADCF;
     ADCCON0 |= (1 << 6);
+    while (ADCF != 1);   
 }
 
-uint16_t resultConvert()
+uint16_t readResultConvert()
 {
     uint16_t lowByte = 0;
     uint16_t highByte = 0;
     uint16_t resutl = 0;
 
+    enable_ADC();
+    
     lowByte = ADCRL & 0x0F;
     highByte = ADCRH;
 
