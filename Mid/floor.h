@@ -7,6 +7,6 @@ typedef enum{
     F_DEFAULT
 }directionFloor_t;
 
-int floor_UpDown(uint16_t desireLevel);
+int FLOOR_UpOrDown(uint16_t desireLevel);
 int floor_Down(uint16_t desireLevel);
 #endif /* _FLOOR_H_*/

@@ -31,7 +31,7 @@ typedef enum timerStatus
 /******************************************************************************/
 /*                              FUNCTION                                      */
 /******************************************************************************/
-void TIMER_Init(TimerChanel channel);
+void TIMER_Init(TimerChanel channel,uint16_t baudRate);
 void TIMER_CallBackInit(type_TimerCallBackFnc pHandle);
 void TIMER_Enable(TimerChanel channel);
 void TIMER_Disable(TimerChanel channel);

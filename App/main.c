@@ -23,9 +23,16 @@
 #include "queue.h"
 #include "floor.h"
 #include "adc.h"
+#include "timer.h"
+#include "soft_uart.h"
+
+
+#define SET_LOW2() (clr_P02)
+#define SET_HIGH2() (set_P02)
 /*******************************************************************************
  * Definition
  ******************************************************************************/
+#define BAUD_1200 (13333)
 
 uint16_t topLimitFloor = 3583;
 uint16_t botLimitFloor = 2;
@@ -60,7 +67,8 @@ void main(void)
     UART_Init(1200);
     ENABLE_AllInterrupt();
     init_ADC();
-    floor_UpDown(2);
+    
+    //floor_UpDown(2);
     //botLimitFloor = resultConvert();
     
     // MOTOR_Config();
@@ -69,7 +77,10 @@ void main(void)
     // RELAY_AC(1);
     // delay_ms(1000);
     // MOTOR_Init(120);
-
+    //GPIO_SOFT_UART_Init();
+    
+    SOFT_UART_Init(BAUD_1200);
+    SOFT_UART_SendByte(0x12);
     while(1)
     {
         //MOTOR_SetSpeed(120,120);
@@ -80,7 +91,10 @@ void main(void)
         // MOTOR_SetSpeed(10,120);
         // delay_ms(500);
         
-        UART_SendByte('h');
+        SOFT_UART_SendByte(0x49);
+        // SET_LOW2();
         delay_ms(500);
+        // SET_HIGH2();
+        // delay_ms(50);
     }
 }

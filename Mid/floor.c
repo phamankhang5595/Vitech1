@@ -22,7 +22,7 @@ static void get_adc_levels()
     }
 }
 
-int floor_UpDown(uint16_t desireIncl)
+int FLOOR_UpOrDown(uint16_t desireIncl)
 {
     int i;
     uint16_t resutlAdc;
@@ -48,7 +48,7 @@ int floor_UpDown(uint16_t desireIncl)
     /* Get current value of adc*/
     resutlAdc = readResultConvert();
     /*  Check Incline will increase or decrease*/
-    if ( resutlAdc <  desireIncl- DELTA)
+    if ( resutlAdc <  desireIncl - DELTA)
     {
         dir = F_UP;
     }

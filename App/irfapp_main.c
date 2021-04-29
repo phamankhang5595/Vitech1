@@ -35,7 +35,6 @@ static void APP_ResetDevice(u8 type, u8 *buff, u8 length);
 
 /*!
  * @brief 
- *
  * @param 
  * @param 
  */

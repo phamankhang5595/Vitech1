@@ -9,6 +9,7 @@
 ".\Objects\uart.obj",
 ".\Objects\gpio.obj",
 ".\Objects\adc.obj",
+".\Objects\soft_uart.obj",
 ".\Objects\queue.obj" 
 TO ".\Objects\motor_test" 
 PRINT(".\Listings\motor_test.m51") RAMSIZE(256) 

@@ -2,6 +2,10 @@
     "svn.ignoreMissingSvnWarning": true,
     "files.associations": {
         "adc.h": "c",
-        "sfr_macro.h": "c"
-    }
+        "sfr_macro.h": "c",
+        "gpio.h": "c",
+        "function_define.h": "c",
+        "timer.h": "c"
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
 }

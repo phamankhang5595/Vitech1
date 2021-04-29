@@ -491,6 +491,16 @@
               <FileType>5</FileType>
               <FilePath>..\Driver\adc.h</FilePath>
             </File>
+            <File>
+              <FileName>soft_uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Driver\soft_uart.c</FilePath>
+            </File>
+            <File>
+              <FileName>soft_uart.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Driver\soft_uart.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

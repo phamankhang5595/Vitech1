@@ -8,6 +8,7 @@
 #include "N76E003.h"
 #include "SFR_Macro.h"
 #include "Function_Define.h"
+#include "soft_uart.h"
 #include "timer.h"
 
 /******************************************************************************/
@@ -15,7 +16,6 @@
 /******************************************************************************/
 
 type_TimerCallBackFnc p_timerCallBack;
-
 /******************************************************************************/
 /*                              FUNCTION                                      */
 /******************************************************************************/
@@ -25,14 +25,14 @@ type_TimerCallBackFnc p_timerCallBack;
  * @param  
  * @retval None
  */
-void TIMER_Init(TimerChanel channel)
+void TIMER_Init(TimerChanel channel,uint16_t baudRate)
 {
     switch (channel)
     {
     case TIMER0:
         CKCON |= (1 << 3); // clock source of Timer 0 is direct the system clock
-        TL0 =  0x80;  // 1ms
-        TH0 =  0xC1;  // 1ms
+        TL0 =  baudRate & 0xFF;  // 1/1200s
+        TH0 =  (baudRate >> 8) & 0xFF;  // 1/1200s
         TMOD |= (1 << 0); // timer0 16bit
         break;
     case TIMER1:
