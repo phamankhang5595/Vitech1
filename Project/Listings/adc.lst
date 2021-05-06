@@ -1,0 +1,59 @@
+C51 COMPILER V9.60.0.0   ADC                                                               05/06/2021 17:17:19 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE ADC
+OBJECT MODULE PLACED IN .\Objects\adc.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE ..\Driver\adc.c LARGE OPTIMIZE(0,SPEED) BROWSE INCDIR(..\App;..\Common;.
+                    -.\Driver;..\Utilities;..\Mid) DEBUG OBJECTEXTEND PRINT(.\Listings\adc.lst) TABS(2) OBJECT(.\Objects\adc.obj)
+
+line level    source
+
+   1          #include "N76E003.h" 
+   2          #include "SFR_Macro.h"
+   3          #include "Function_Define.h"
+   4          #include "adc.h"
+   5          
+   6          void init_ADC()
+   7          {
+   8   1          P17_Input_Mode;
+   9   1          set_ADCEN;
+  10   1          clr_ADCF;
+  11   1          ADCCON0 &= 0xF0;
+  12   1          AINDIDS |= (1<<0);
+  13   1      }
+  14          
+  15          static void enable_ADC()
+  16          {
+  17   1          clr_ADCF;
+  18   1          ADCCON0 |= (1 << 6);
+  19   1          while (ADCF != 1);   
+  20   1      }
+  21          
+  22          uint16_t readResultConvert()
+  23          {
+  24   1          uint16_t lowByte = 0;
+  25   1          uint16_t highByte = 0;
+  26   1          uint16_t resutl = 0;
+  27   1      
+  28   1          enable_ADC();
+  29   1          
+  30   1          lowByte = ADCRL & 0x0F;
+  31   1          highByte = ADCRH;
+  32   1      
+  33   1          resutl = (highByte << 4) | lowByte;
+  34   1          return resutl;
+  35   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    134    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =      6    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

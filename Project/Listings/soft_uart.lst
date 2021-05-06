@@ -1,0 +1,124 @@
+C51 COMPILER V9.60.0.0   SOFT_UART                                                         05/06/2021 17:17:19 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE SOFT_UART
+OBJECT MODULE PLACED IN .\Objects\soft_uart.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE ..\Driver\soft_uart.c LARGE OPTIMIZE(0,SPEED) BROWSE INCDIR(..\App;..\Co
+                    -mmon;..\Driver;..\Utilities;..\Mid) DEBUG OBJECTEXTEND PRINT(.\Listings\soft_uart.lst) TABS(2) OBJECT(.\Objects\soft_uar
+                    -t.obj)
+
+line level    source
+
+   1          #include "N76E003.h"
+   2          #include "SFR_Macro.h"
+   3          #include "Function_Define.h"
+   4          #include "timer.h"
+   5          #include "soft_uart.h"
+   6          
+   7          #define SET_LOW() (clr_P02)
+   8          #define SET_HIGH() (set_P02)
+   9          
+  10          
+  11          static volatile uint32_t tickCount;
+  12          
+  13          static void SOFT_UART_PinInit()
+  14          {
+  15   1          P02_PushPull_Mode;
+  16   1          P0SR |= (1 << 2);
+  17   1          SET_HIGH();
+  18   1      }
+  19          
+  20          void TICK_Count(void)
+  21          {
+  22   1          tickCount++;
+  23   1          TCON  &= ~(1 << 4);
+  24   1          TL0 =  0xEA;  // 1/1200s
+  25   1          TH0 =  0xCB;  // 1/1200s
+  26   1          TCON  |= (1 << 4);
+  27   1      }
+  28          void testTimerFreq(void)
+  29          {
+  30   1          static volatile count =0;
+  31   1          count=!count;
+  32   1          if(count)
+  33   1            set_P02;
+  34   1          else
+  35   1            clr_P02;
+  36   1          TCON  &= ~(1 << 4);
+  37   1          TL0 =  0xEA;  // 1/1200s
+  38   1          TH0 =  0xCB;  // 1/1200s
+  39   1          TCON  |= (1 << 4);
+  40   1      }
+  41          static uint32_t Handle_Tick(void)
+  42          {
+  43   1          return tickCount;
+  44   1      }
+  45          
+  46          void SOFT_UART_Init(uint16_t baudRate)
+  47          {
+  48   1          CKSWT |= (1 << 5);
+  49   1          CKSWT &= ~(1 << 3);
+  50   1          CKSWT &= ~(3 << 1);
+  51   1          CKEN |= (1 << 5);
+  52   1          
+  53   1          TIMER_Init(TIMER0,baudRate);
+C51 COMPILER V9.60.0.0   SOFT_UART                                                         05/06/2021 17:17:19 PAGE 2   
+
+  54   1          set_ET0;
+  55   1          SOFT_UART_PinInit();
+  56   1          TIMER_CallBackInit(TICK_Count);
+  57   1          TIMER_Enable(TIMER0);
+  58   1      }
+  59          
+  60          void SOFT_UART_SendByte(uint8_t dataByte)
+  61          {
+  62   1          int i;
+  63   1          uint8_t buff[8];
+  64   1          SET_HIGH();
+  65   1          //SET_LOW();
+  66   1          for(i = 0; i < 8; i++)
+  67   1          {
+  68   2              buff[i]=(dataByte >> i)&(1U);
+  69   2          }
+  70   1          tickCount = 0;
+  71   1          while(Handle_Tick() != 1);
+  72   1          SET_LOW();
+  73   1          //SET_HIGH();
+  74   1          
+  75   1          for(i = 0; i < 8; i++)
+  76   1          {
+  77   2              while (Handle_Tick() == i+1);
+  78   2              if(buff[i] == 1)
+  79   2              {
+  80   3                SET_HIGH();
+  81   3                  //SET_LOW();
+  82   3              }else
+  83   2              {
+  84   3                SET_LOW();
+  85   3                 // SET_HIGH();
+  86   3              }
+  87   2          }
+  88   1          while (Handle_Tick() == 9);
+  89   1          SET_HIGH();
+  90   1          //SET_LOW();
+  91   1      }
+  92          
+  93          void SOFT_UART_SendData(uint8_t *str)
+  94          {
+  95   1      
+  96   1      }
+*** WARNING C280 IN LINE 93 OF ..\Driver\soft_uart.c: 'str': unreferenced local variable
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    467    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =     22    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)

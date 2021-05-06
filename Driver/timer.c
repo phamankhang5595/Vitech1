@@ -31,9 +31,12 @@ void TIMER_Init(TimerChanel channel,uint16_t baudRate)
     {
     case TIMER0:
         CKCON |= (1 << 3); // clock source of Timer 0 is direct the system clock
-        TL0 =  (160000000/baudRate) & 0xFF;  // 1/1200s
-        TH0 =  ((160000000/baudRate) >> 8) & 0xFF;  // 1/1200s
         TMOD |= (1 << 0); // timer0 16bit
+        //WARNING
+        // Timer 2 should be used to avoid resetting registers TH0 and TL0 in the handler function
+
+        TL0 =  0xEA;  // = 65535 - 16000000/1200 = 52202
+        TH0 =  0xCB;  // 65535 - 16000000/1200
         break;
     case TIMER1:
         break;

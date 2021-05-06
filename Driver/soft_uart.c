@@ -4,22 +4,28 @@
 #include "timer.h"
 #include "soft_uart.h"
 
-#define SET_LOW() (clr_P01)
-#define SET_HIGH() (set_P01)
+#define SET_LOW() (clr_P02)
+#define SET_HIGH() (set_P02)
 
 
-static uint32_t tickCount;
+static volatile uint32_t tickCount;
 
 static void SOFT_UART_PinInit()
 {
-    P01_PushPull_Mode;
-    P0SR |= (1 << 1);
-    SET_LOW();
+    P02_PushPull_Mode;
+    P0SR |= (1 << 2);
+    SET_HIGH();
 }
 
 void TICK_Count(void)
 {
     tickCount++;
+   /*  WARNING
+    Timer 2 should be used to avoid resetting registers TH0 and TL0 in the handler function */
+	TCON  &= ~(1 << 4);             // turn off timer
+	TL0 =  0xEA;                    //resetting
+    TH0 =  0xCB;    
+	TCON  |= (1 << 4);              //turn on timer
 }
 
 static uint32_t Handle_Tick(void)
@@ -45,30 +51,33 @@ void SOFT_UART_SendByte(uint8_t dataByte)
 {
     int i;
     uint8_t buff[8];
-    
-    SET_LOW();
+    SET_HIGH();
+    //SET_LOW();
     for(i = 0; i < 8; i++)
     {
         buff[i]=(dataByte >> i)&(1U);
     }
     tickCount = 0;
     while(Handle_Tick() != 1);
-    
-    SET_HIGH();
+    SET_LOW();
+    //SET_HIGH();
     
     for(i = 0; i < 8; i++)
     {
-        while (tickCount == i+1);
+        while (Handle_Tick() == i+1);
         if(buff[i] == 1)
         {
-            SET_LOW();
+					SET_HIGH();
+            //SET_LOW();
         }else
         {
-            SET_HIGH();
+					SET_LOW();
+           // SET_HIGH();
         }
     }
     while (Handle_Tick() == 9);
-    SET_LOW();
+    SET_HIGH();
+		//SET_LOW();
 }
 
 void SOFT_UART_SendData(uint8_t *str)

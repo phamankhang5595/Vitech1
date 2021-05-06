@@ -63,10 +63,10 @@ void handleUart(void)
 void main(void)
 {
     uint16_t convert;
-    char ch;
-    UART_Init(1200);
+    unsigned char ch = 0;
+    //UART_Init(1200);
     ENABLE_AllInterrupt();
-    init_ADC();
+    //init_ADC();
     
     //floor_UpDown(2);
     //botLimitFloor = resultConvert();
@@ -91,9 +91,10 @@ void main(void)
         // MOTOR_SetSpeed(10,120);
         // delay_ms(500);
         
-        SOFT_UART_SendByte(0x49);
+        SOFT_UART_SendByte(ch);
+				ch++;
         // SET_LOW2();
-        delay_ms(500);
+        //delay_ms(500);
         // SET_HIGH2();
         // delay_ms(50);
     }
