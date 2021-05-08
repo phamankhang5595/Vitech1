@@ -148,7 +148,7 @@
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>Driver\TIMER.C</Filename>
+          <Filename>D:\Vitech\sport1_dc_board\Vitech1\Project\Driver\TIMER.C</Filename>
           <ExecCommand></ExecCommand>
           <Expression></Expression>
         </Bp>
@@ -164,7 +164,7 @@
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>Driver\SOFT_UART.C</Filename>
+          <Filename>D:\Vitech\sport1_dc_board\Vitech1\Project\Driver\SOFT_UART.C</Filename>
           <ExecCommand></ExecCommand>
           <Expression></Expression>
         </Bp>

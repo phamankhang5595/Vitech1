@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.0.0   SOFT_UART                                                         05/06/2021 17:17:19 PAGE 1   
+C51 COMPILER V9.60.0.0   SOFT_UART                                                         05/09/2021 03:16:57 PAGE 1   
 
 
 C51 COMPILER V9.60.0.0, COMPILATION OF MODULE SOFT_UART
@@ -31,89 +31,79 @@ line level    source
   20          void TICK_Count(void)
   21          {
   22   1          tickCount++;
-  23   1          TCON  &= ~(1 << 4);
-  24   1          TL0 =  0xEA;  // 1/1200s
-  25   1          TH0 =  0xCB;  // 1/1200s
-  26   1          TCON  |= (1 << 4);
-  27   1      }
-  28          void testTimerFreq(void)
-  29          {
-  30   1          static volatile count =0;
-  31   1          count=!count;
-  32   1          if(count)
-  33   1            set_P02;
-  34   1          else
-  35   1            clr_P02;
-  36   1          TCON  &= ~(1 << 4);
-  37   1          TL0 =  0xEA;  // 1/1200s
-  38   1          TH0 =  0xCB;  // 1/1200s
-  39   1          TCON  |= (1 << 4);
-  40   1      }
-  41          static uint32_t Handle_Tick(void)
-  42          {
-  43   1          return tickCount;
-  44   1      }
-  45          
-  46          void SOFT_UART_Init(uint16_t baudRate)
-  47          {
-  48   1          CKSWT |= (1 << 5);
-  49   1          CKSWT &= ~(1 << 3);
-  50   1          CKSWT &= ~(3 << 1);
-  51   1          CKEN |= (1 << 5);
-  52   1          
-  53   1          TIMER_Init(TIMER0,baudRate);
-C51 COMPILER V9.60.0.0   SOFT_UART                                                         05/06/2021 17:17:19 PAGE 2   
+  23   1         /*  WARNING
+  24   1          Timer 2 should be used to avoid resetting registers TH0 and TL0 in the handler function */
+  25   1        TCON  &= ~(1 << 4);             // turn off timer
+  26   1        TL0 =  0xEA;                    //resetting
+  27   1          TH0 =  0xCB;    
+  28   1        TCON  |= (1 << 4);              //turn on timer
+  29   1      }
+  30          
+  31          static uint32_t Handle_Tick(void)
+  32          {
+  33   1          return tickCount;
+  34   1      }
+  35          
+  36          void SOFT_UART_Init(uint16_t baudRate)
+  37          {
+  38   1          CKSWT |= (1 << 5);
+  39   1          CKSWT &= ~(1 << 3);
+  40   1          CKSWT &= ~(3 << 1);
+  41   1          CKEN |= (1 << 5);
+  42   1          
+  43   1          TIMER_Init(TIMER0,baudRate);
+  44   1          set_ET0;
+  45   1          SOFT_UART_PinInit();
+  46   1          TIMER_CallBackInit(TICK_Count);
+  47   1          TIMER_Enable(TIMER0);
+  48   1      }
+  49          
+  50          void SOFT_UART_SendByte(uint8_t dataByte)
+  51          {
+  52   1          int i;
+  53   1          uint8_t buff[8];
+C51 COMPILER V9.60.0.0   SOFT_UART                                                         05/09/2021 03:16:57 PAGE 2   
 
-  54   1          set_ET0;
-  55   1          SOFT_UART_PinInit();
-  56   1          TIMER_CallBackInit(TICK_Count);
-  57   1          TIMER_Enable(TIMER0);
-  58   1      }
-  59          
-  60          void SOFT_UART_SendByte(uint8_t dataByte)
-  61          {
-  62   1          int i;
-  63   1          uint8_t buff[8];
-  64   1          SET_HIGH();
-  65   1          //SET_LOW();
-  66   1          for(i = 0; i < 8; i++)
-  67   1          {
-  68   2              buff[i]=(dataByte >> i)&(1U);
-  69   2          }
-  70   1          tickCount = 0;
-  71   1          while(Handle_Tick() != 1);
-  72   1          SET_LOW();
-  73   1          //SET_HIGH();
-  74   1          
-  75   1          for(i = 0; i < 8; i++)
-  76   1          {
-  77   2              while (Handle_Tick() == i+1);
-  78   2              if(buff[i] == 1)
-  79   2              {
-  80   3                SET_HIGH();
-  81   3                  //SET_LOW();
-  82   3              }else
-  83   2              {
-  84   3                SET_LOW();
-  85   3                 // SET_HIGH();
-  86   3              }
-  87   2          }
-  88   1          while (Handle_Tick() == 9);
-  89   1          SET_HIGH();
-  90   1          //SET_LOW();
-  91   1      }
-  92          
-  93          void SOFT_UART_SendData(uint8_t *str)
-  94          {
-  95   1      
-  96   1      }
-*** WARNING C280 IN LINE 93 OF ..\Driver\soft_uart.c: 'str': unreferenced local variable
+  54   1          SET_HIGH();
+  55   1          //SET_LOW();
+  56   1          for(i = 0; i < 8; i++)
+  57   1          {
+  58   2              buff[i]=(dataByte >> i)&(1U);
+  59   2          }
+  60   1          tickCount = 0;
+  61   1          while(Handle_Tick() != 1);
+  62   1          SET_LOW();
+  63   1          //SET_HIGH();
+  64   1          
+  65   1          for(i = 0; i < 8; i++)
+  66   1          {
+  67   2              while (Handle_Tick() == i+1);
+  68   2              if(buff[i] == 1)
+  69   2              {
+  70   3                SET_HIGH();
+  71   3                  //SET_LOW();
+  72   3              }else
+  73   2              {
+  74   3                SET_LOW();
+  75   3                 // SET_HIGH();
+  76   3              }
+  77   2          }
+  78   1          while (Handle_Tick() == 9);
+  79   1          SET_HIGH();
+  80   1          //SET_LOW();
+  81   1      }
+  82          
+  83          void SOFT_UART_SendData(uint8_t *str)
+  84          {
+  85   1      
+  86   1      }
+*** WARNING C280 IN LINE 83 OF ..\Driver\soft_uart.c: 'str': unreferenced local variable
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    467    ----
+   CODE SIZE        =    408    ----
    CONSTANT SIZE    =   ----    ----
-   XDATA SIZE       =     22    ----
+   XDATA SIZE       =     20    ----
    PDATA SIZE       =   ----    ----
    DATA SIZE        =   ----    ----
    IDATA SIZE       =   ----    ----
