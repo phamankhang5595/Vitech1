@@ -96,8 +96,3 @@ int FLOOR_UpOrDown(uint16_t desireIncl)
     /* Start run*/
     return 0;
 }
-
-int floor_Down(uint16_t desireIncl)
-{
-    
-}

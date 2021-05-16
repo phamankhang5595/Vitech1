@@ -12,6 +12,7 @@
 #include "pwm.h"
 #include "delay.h"
 
+volatile int checkStopCmd = 0;
 /******************************************************************************/
 /*                              FUNCTION                                      */
 /******************************************************************************/
@@ -41,10 +42,9 @@ void MOTOR_Init(uint16_t defaultDuty)
  * @brief   None
  * @param   None
  */
-uint16_t MOTOR_GetCurrentSpeed(u8 revSpeed)
+uint16_t MOTOR_GetCurrentSpeed(void)
 {
-    float x = revSpeed/10.0;
-    return ((uint16_t)(13650 - 150*x));
+    return ((PWM2H << 8) |(PWM2L));
 }
 /**
  * @func    MOTOR_SetSpeed
@@ -56,17 +56,42 @@ void MOTOR_SetSpeed(uint16_t currentDuty, uint16_t desireDuty)
     uint16_t i = 0;
     if(currentDuty > desireDuty)
     {
-        for(i = currentDuty; i > desireDuty; i--)
+        for(i = currentDuty; i > desireDuty && checkStopCmd != 1; i--)
         {
             PWM_SetDuty(i);
             delay_ms(20);
         }
     }else
     {
-        for(i = currentDuty; i < desireDuty; i++)
+        for(i = currentDuty; i < desireDuty && checkStopCmd != 1; i++)
         {
             PWM_SetDuty(i);
             delay_ms(20);
         }
+    }
+    checkStopCmd = 0;
+}
+void MOTOR_SetStop(uint16_t currentDuty)
+{
+    uint16_t i = 0;
+//    if(currentDuty > desireDuty)
+//    {
+//        for(i = currentDuty; i > desireDuty && checkStopCmd != 1; i--)
+//        {
+//            PWM_SetDuty(i);
+//            delay_ms(20);
+//        }
+//    }else
+//    {
+//        for(i = currentDuty; i < desireDuty && checkStopCmd != 1; i++)
+//        {
+//            PWM_SetDuty(i);
+//            delay_ms(20);
+//        }
+//    }
+    for(i = currentDuty; i > DEFAULTDUTY ; i--)
+    {
+        PWM_SetDuty(i);
+        delay_ms(20);
     }
 }

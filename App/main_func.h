@@ -1,48 +1,33 @@
-#ifndef __MAIN_FUNC_H__
-#define __MAIN_FUNC_H__
-/*******************************************************************************
- * API
- ******************************************************************************/
-/**
- * @func   funcHandle_AllFlag
- * @brief  None
- * @param  
- * @retval None
+/*
+ *  mainfunclist.h
+ *
+ *  Created on: Dec 25, 2020
+ *      Author: Truong VV
  */
+
+#ifndef MAINFUNCLIST_H
+#define MAINFUNCLIST_H
+/******************************************************************************/
+/*                              INCLUDE                                      */
+/******************************************************************************/
+
+/******************************************************************************/
+/*                              DEFINE                                      */
+/******************************************************************************/
+
+/******************************************************************************/
+/*                              FUNCTION                                      */
+/******************************************************************************/
 void funcHandle_AllFlag(void);
-
-/**
- * @func   funcHandle_StartRunFlag
- * @brief  None
- * @param  
- * @retval None
- */
+void funcHandle_DeviceAnnounceFlag(void);
+void funcHandle_CheckConnectFlag(void);
 void funcHandle_StartRunFlag(void);
-
-/**
- * @func   funcHandle_StopRunFlag
- * @brief  None
- * @param  
- * @retval None
- */
 void funcHandle_StopRunFlag(void);
+void funcHandle_UpdownFloorFlag(void);
+void funcHandle_GetStateMotorFlag(void);
+void funcHandle_GetStateFloorFlag(void);
+void funcHandle_SetSpeedMotorFlag(void);
+void funcHandle_GetAllStateFlag(void);
+void funcHandle_ResetDeviceFlag(void);
 
-/**
- * @func   funcHandle_SetSpeedMotorUpFlag
- * @brief  None
- * @param  
- * @retval None
- */
-void funcHandle_SetSpeedMotorUpFlag(void);
-
-/**
- * @func   funcHandle_SetSpeedMotorDownFlag
- * @brief  None
- * @param  
- * @retval None
- */
-void funcHandle_SetSpeedMotorDownFlag(void);
-#endif
-/*******************************************************************************
- * EOF
- ******************************************************************************/
+#endif /*MAINFUNCLIST_H*/

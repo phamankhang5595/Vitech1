@@ -1,30 +1,40 @@
+/*
+ * Copyright (c) 2021
+ * Team, JSC.
+ * All Rights Reserved
+ *
+ *
+ * Description:
+ *
+ * Author: Truongvv
+ *
+ * Last Changed By:  $Author: Truongvv $
+ * Revision:         $Revision: 1.0 $
+ * Last Changed:     $Date: x/x/xxxx $
+ */
 #include "N76E003.h"
 #include "SFR_Macro.h"
 #include "Function_Define.h"
-#include "irf.h"
+#include "irfapp_main.h"
+#include "Irf.h"
 #include "uart.h"
 #include "queue.h"
 #include "xor.h"
-/*******************************************************************************
- * Definition
- ******************************************************************************/
 
-/*******************************************************************************
- * Variable
- ******************************************************************************/
 QUEUEx_t    irf_CommandQueue;
 irf_Command_t irf_CommandBuff[IRF_QUEUE_MAX];
-/*******************************************************************************
- * code
- ******************************************************************************/
-static void IRFCallBackHandle();
-/*!
- * @brief IRF_INIT
- *
- * @param 
- * @param 
+extern volatile int checkStopCmd;
+/******************************************************************************/
+/*                            FUNCTIONS                              */
+/******************************************************************************/
+static void IRF_CallBackHandle(void);
+
+/**
+ * @func    IRF_Init
+ * @brief   None
+ * @param   None
  */
-void IRF_Init()
+void IRF_Init(void)
 {
     UART_Init(UART_BAUDRATE);
     UART_CallBackInit(IRF_CallBackHandle);
@@ -32,19 +42,25 @@ void IRF_Init()
                 IRF_QUEUE_MAX, sizeof(irf_Command_t));
     UART_Enable();
 }
-/*!
- * @brief IRF_CallBackHandle
- *
- * @param none
+
+/**
+ * @func    IRF_CallBackHandle
+ * @brief   None
+ * @param   None
  */
 static void IRF_CallBackHandle(void)
 {
     static u8 revByte = 0;
     static u16 revByteCount = 0;
-    static u8 revBuff[IRF_HEADER + IRF_BUFF_MAX + 1];
-
+    u8 revBuff[IRF_HEADER + IRF_BUFF_MAX + 1];
+    u8 sendError[5];
     revByte = UART_RevData();
     revBuff[revByteCount++] = revByte;
+    /* Check if cmd is stop then do not queue*/
+    if (revBuff[0] == 0x40)
+    {
+        checkStopCmd = 1;
+    }
     if(revByteCount >= IRF_HEADER)
     {
         if(revByteCount == (IRF_HEADER + revBuff[3] + 1))
@@ -53,27 +69,38 @@ static void IRF_CallBackHandle(void)
             {
                 QUEUE_Push(&irf_CommandQueue, revBuff);
             }
+            else
+            {
+                UART_SendData("RJ");
+            }
             revByteCount = 0;
         }
     }
 }
 
-/*!
- * @brief 
- *
- * @param 
- * @param 
+/**
+ * @func    IRF_Proc
+ * @brief   None
+ * @param   None
  */
-u8 IRF_GetCommand(irf_Command_t *irf_CommandBuff)
+void IRF_Proc(void)
 {
-    /* if queue not empty: get command */
+    irf_Command_t irf_CommandBuff;
     if(!QUEUE_Empty(&irf_CommandQueue))
     {
-        QUEUE_Get(&irf_CommandQueue,(u8*)irf_CommandBuff);
-        return 1;
+        QUEUE_Get(&irf_CommandQueue, (u8*)&irf_CommandBuff);
+        APP_CheckCommandExistAndExecutes(\
+            irf_CommandBuff.command, irf_CommandBuff.type,\
+            irf_CommandBuff.buff, irf_CommandBuff.length); 
     }
-    return 0;
 }
-/*******************************************************************************
- * EOF
- ******************************************************************************/
+
+/**
+ * @func    IRF_Send
+ * @brief   None
+ * @param   None
+ */
+void IRF_Send(u8* buff, u8 length)
+{
+    UART_SendData(buff, length);
+}

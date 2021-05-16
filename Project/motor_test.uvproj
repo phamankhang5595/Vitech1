@@ -324,7 +324,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\App;..\Common;..\Driver;..\Utilities;..\Mid</IncludePath>
+              <IncludePath>..\App;..\Common;..\Driver;..\Mid;..\Utilities</IncludePath>
             </VariousControls>
           </C51>
           <Ax51>
@@ -391,11 +391,61 @@
               <FileType>1</FileType>
               <FilePath>..\App\main.c</FilePath>
             </File>
+            <File>
+              <FileName>irfapp_main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\App\irfapp_main.c</FilePath>
+            </File>
+            <File>
+              <FileName>irfapp_main.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\App\irfapp_main.h</FilePath>
+            </File>
+            <File>
+              <FileName>main_func.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\App\main_func.c</FilePath>
+            </File>
+            <File>
+              <FileName>main_func.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\App\main_func.h</FilePath>
+            </File>
+            <File>
+              <FileName>main_init.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\App\main_init.c</FilePath>
+            </File>
+            <File>
+              <FileName>main_init.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\App\main_init.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>Mid</GroupName>
           <Files>
+            <File>
+              <FileName>floor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Mid\floor.c</FilePath>
+            </File>
+            <File>
+              <FileName>floor.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Mid\floor.h</FilePath>
+            </File>
+            <File>
+              <FileName>irf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Mid\irf.c</FilePath>
+            </File>
+            <File>
+              <FileName>irf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Mid\irf.h</FilePath>
+            </File>
             <File>
               <FileName>motor.c</FileName>
               <FileType>1</FileType>
@@ -416,21 +466,21 @@
               <FileType>5</FileType>
               <FilePath>..\Mid\relay.h</FilePath>
             </File>
-            <File>
-              <FileName>floor.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Mid\floor.c</FilePath>
-            </File>
-            <File>
-              <FileName>floor.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Mid\floor.h</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>Driver</GroupName>
           <Files>
+            <File>
+              <FileName>adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Driver\adc.c</FilePath>
+            </File>
+            <File>
+              <FileName>adc.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Driver\adc.h</FilePath>
+            </File>
             <File>
               <FileName>delay.c</FileName>
               <FileType>1</FileType>
@@ -442,6 +492,16 @@
               <FilePath>..\Driver\delay.h</FilePath>
             </File>
             <File>
+              <FileName>gpio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Driver\gpio.c</FilePath>
+            </File>
+            <File>
+              <FileName>gpio.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Driver\gpio.h</FilePath>
+            </File>
+            <File>
               <FileName>pwm.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Driver\pwm.c</FilePath>
@@ -450,6 +510,16 @@
               <FileName>pwm.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\Driver\pwm.h</FilePath>
+            </File>
+            <File>
+              <FileName>soft_uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Driver\soft_uart.c</FilePath>
+            </File>
+            <File>
+              <FileName>soft_uart.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Driver\soft_uart.h</FilePath>
             </File>
             <File>
               <FileName>timer.c</FileName>
@@ -471,93 +541,35 @@
               <FileType>5</FileType>
               <FilePath>..\Driver\uart.h</FilePath>
             </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Utilities</GroupName>
+          <Files>
             <File>
-              <FileName>gpio.c</FileName>
+              <FileName>queue.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Driver\gpio.c</FilePath>
+              <FilePath>..\Utilities\queue.c</FilePath>
             </File>
             <File>
-              <FileName>gpio.h</FileName>
+              <FileName>queue.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\Driver\gpio.h</FilePath>
+              <FilePath>..\Utilities\queue.h</FilePath>
             </File>
             <File>
-              <FileName>adc.c</FileName>
+              <FileName>xor.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Driver\adc.c</FilePath>
+              <FilePath>..\Utilities\xor.c</FilePath>
             </File>
             <File>
-              <FileName>adc.h</FileName>
+              <FileName>xor.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\Driver\adc.h</FilePath>
-            </File>
-            <File>
-              <FileName>soft_uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Driver\soft_uart.c</FilePath>
-            </File>
-            <File>
-              <FileName>soft_uart.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Driver\soft_uart.h</FilePath>
+              <FilePath>..\Utilities\xor.h</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
           <GroupName>Common</GroupName>
-          <GroupOption>
-            <CommonProperty>
-              <UseCPPCompiler>0</UseCPPCompiler>
-              <RVCTCodeConst>0</RVCTCodeConst>
-              <RVCTZI>0</RVCTZI>
-              <RVCTOtherData>0</RVCTOtherData>
-              <ModuleSelection>0</ModuleSelection>
-              <IncludeInBuild>2</IncludeInBuild>
-              <AlwaysBuild>2</AlwaysBuild>
-              <GenerateAssemblyFile>2</GenerateAssemblyFile>
-              <AssembleAssemblyFile>2</AssembleAssemblyFile>
-              <PublicsOnly>2</PublicsOnly>
-              <StopOnExitCode>11</StopOnExitCode>
-              <CustomArgument></CustomArgument>
-              <IncludeLibraryModules></IncludeLibraryModules>
-              <ComprImg>1</ComprImg>
-              <BankNo>65535</BankNo>
-            </CommonProperty>
-            <Group51>
-              <C51>
-                <RegisterColoring>2</RegisterColoring>
-                <VariablesInOrder>2</VariablesInOrder>
-                <IntegerPromotion>2</IntegerPromotion>
-                <uAregs>2</uAregs>
-                <UseInterruptVector>2</UseInterruptVector>
-                <Fuzzy>8</Fuzzy>
-                <Optimize>10</Optimize>
-                <WarningLevel>3</WarningLevel>
-                <SizeSpeed>2</SizeSpeed>
-                <ObjectExtend>2</ObjectExtend>
-                <ACallAJmp>2</ACallAJmp>
-                <InterruptVectorAddress>0</InterruptVectorAddress>
-                <VariousControls>
-                  <MiscControls></MiscControls>
-                  <Define></Define>
-                  <Undefine></Undefine>
-                  <IncludePath></IncludePath>
-                </VariousControls>
-              </C51>
-              <Ax51>
-                <UseMpl>2</UseMpl>
-                <UseStandard>2</UseStandard>
-                <UseCase>2</UseCase>
-                <UseMod51>3</UseMod51>
-                <VariousControls>
-                  <MiscControls></MiscControls>
-                  <Define></Define>
-                  <Undefine></Undefine>
-                  <IncludePath></IncludePath>
-                </VariousControls>
-              </Ax51>
-            </Group51>
-          </GroupOption>
           <Files>
             <File>
               <FileName>Function_Define.h</FileName>
@@ -573,21 +585,6 @@
               <FileName>SFR_Macro.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\Common\SFR_Macro.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>u</GroupName>
-          <Files>
-            <File>
-              <FileName>queue.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Utilities\queue.c</FilePath>
-            </File>
-            <File>
-              <FileName>queue.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Utilities\queue.h</FilePath>
             </File>
           </Files>
         </Group>

@@ -1,16 +1,21 @@
 ".\Objects\STARTUP.obj",
 ".\Objects\main.obj",
+".\Objects\irfapp_main.obj",
+".\Objects\main_func.obj",
+".\Objects\main_init.obj",
+".\Objects\floor.obj",
+".\Objects\irf.obj",
 ".\Objects\motor.obj",
 ".\Objects\relay.obj",
-".\Objects\floor.obj",
+".\Objects\adc.obj",
 ".\Objects\delay.obj",
+".\Objects\gpio.obj",
 ".\Objects\pwm.obj",
+".\Objects\soft_uart.obj",
 ".\Objects\timer.obj",
 ".\Objects\uart.obj",
-".\Objects\gpio.obj",
-".\Objects\adc.obj",
-".\Objects\soft_uart.obj",
-".\Objects\queue.obj" 
+".\Objects\queue.obj",
+".\Objects\xor.obj" 
 TO ".\Objects\motor_test" 
 PRINT(".\Listings\motor_test.m51") RAMSIZE(256) 
 CODE( 0X0000-0X47FF )

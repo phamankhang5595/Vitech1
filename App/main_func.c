@@ -1,21 +1,50 @@
+/*
+ *      mainfunclist.c
+ *
+ *      Created on: Dec 25, 2020
+ *      Author: Truong VV
+ */
+
 #include "N76E003.h"
 #include "SFR_Macro.h"
 #include "Function_Define.h"
 #include "irfapp_main.h"
-#include "main_func.h"
 #include "irf.h"
 #include "motor.h"
 #include "relay.h"
-/*******************************************************************************
- * Variable
- ******************************************************************************/
-/* flag */
-extern volatile uint8_t startRunFlag = 0;
-extern volatile uint8_t stopRunFlag = 0;
-extern volatile uint8_t setSpeedMotorUpFlag = 0;
-extern volatile uint8_t setSpeedMotorDownFlag = 0;
+#include "xor.h"
+#include "main_func.h"
+
+/******************************************************************************/
+/*                              DECLARE                                      */
+/******************************************************************************/
+
+uint8_t checkConnect[]  = {0x20, 0xA1, 0x00, 0x01, 0x0A, 0x8A};
+uint8_t startRun[]      = {0x30, 0xA1, 0x00, 0x01, 0x0A, 0x9A};
+uint8_t stopRun[]       = {0x40, 0xA1, 0x00, 0x01, 0x0A, 0xEA};
+uint8_t updownFloor[]   = {0x50, 0xA1, 0x00, 0x01, 0x0A, 0xFA};
+uint8_t getStateMotor[] = {0x70, 0xA1, 0x00, 0x01, 0x72, 0xA2};
+uint8_t getStateFloor[] = {0x73, 0xA1, 0x00, 0x01, 0x75, 0xA6};
+uint8_t setSpeedMotor[] = {0x80, 0xA1, 0x00, 0x01, 0x0A, 0x2A};
+uint8_t getAllState[]   = {0x90, 0xA1, 0x00, 0x02, 0x21, 0x71, 0x63};
+uint8_t resetDevice[]   = {0x0F, 0xA1, 0x00, 0x01, 0x0A, 0xA5};
+
+extern volatile uint8_t deviceAnnounceFlag;
+extern volatile uint8_t checkConnectFlag;
+extern volatile uint8_t startRunFlag;
+extern volatile uint8_t stopRunFlag;
+extern volatile uint8_t updownFloorFlag;
+extern volatile uint8_t getStateMotorFlag;
+extern volatile uint8_t getStateFloorFlag;
+extern volatile uint8_t setSpeedMotorFlag;
+extern volatile uint8_t getAllStateFlag;
+extern volatile uint8_t resetDeviceFlag;
+extern volatile uint8_t speedValue;
 
 uint16_t currentDuty;
+uint8_t stateConnectFlag;
+uint8_t stateMotorFlag;
+uint8_t stateFloorFlag;
 
 /******************************************************************************/
 /*                              FUNCTION                                      */
@@ -27,11 +56,26 @@ uint16_t currentDuty;
  * @param  
  * @retval None
  */
+ void funcHandle_CurrentDuty()
+ {
+     
+ }
+ 
 void funcHandle_AllFlag(void)
 {
-    if(startRunFlag==1||stopRunFlag==1||setSpeedMotorUpFlag==1||setSpeedMotorDownFlag==1)
+    if(deviceAnnounceFlag==1||checkConnectFlag==1||startRunFlag==1||\
+        stopRunFlag==1||updownFloorFlag==1||getStateMotorFlag==1||\
+        getStateFloorFlag==1||setSpeedMotorFlag==1||getAllStateFlag==1)
     {
-        if(startRunFlag == 1)
+        if(deviceAnnounceFlag == 1)
+        {
+            funcHandle_DeviceAnnounceFlag();
+            
+        }else if(checkConnectFlag == 1)
+        {
+            funcHandle_CheckConnectFlag();
+
+        }else if(startRunFlag == 1)
         {   
             funcHandle_StartRunFlag();
 
@@ -39,13 +83,52 @@ void funcHandle_AllFlag(void)
         {
             funcHandle_StopRunFlag();
 
-        }else if(setSpeedMotorUpFlag == 1)
+        }else if(updownFloorFlag == 1)
         {
-            funcHandle_SetSpeedMotorUpFlag();
+            funcHandle_UpdownFloorFlag();
+
+        }else if(getStateMotorFlag == 1)
+        {
+            funcHandle_GetStateMotorFlag();
+
+        }else if(getStateFloorFlag == 1)
+        {
+            funcHandle_GetStateFloorFlag();
+
+        }else if(setSpeedMotorFlag == 1)
+        {
+            funcHandle_SetSpeedMotorFlag();
+
+        }else if(getAllStateFlag == 1)
+        {
+            funcHandle_GetAllStateFlag();
+
         }
     }
 }
-
+/**
+ * @func   funcHandle_DeviceAnnounceFlag
+ * @brief  None
+ * @param  
+ * @retval None
+ */
+void funcHandle_DeviceAnnounceFlag(void)
+{
+    
+}
+/**
+ * @func   funcHandle_CheckConnectFlag
+ * @brief  None
+ * @param  
+ * @retval None
+ */
+void funcHandle_CheckConnectFlag(void)
+{
+    checkConnectFlag = 0;
+    IRF_Send(checkConnect, sizeof(checkConnect));
+    stateConnectFlag = 1;
+    
+}
 /**
  * @func   funcHandle_StartRunFlag
  * @brief  None
@@ -54,16 +137,11 @@ void funcHandle_AllFlag(void)
  */
 void funcHandle_StartRunFlag(void)
 {
-    /* clear flag */
     startRunFlag = 0;
-    /* respon to master */
     //IRF_Send(startRun, sizeof(startRun));
-    /* turn on relay */
-    //RELAY_AC(ON);
-    /* start motor at default speed ?*/
-    MOTOR_SetSpeed(DEFAULTDUTY, DEFAULTSPEEP);
-    /* get current duty */
-    currentDuty = DEFAULTSPEEP;
+    RELAY_AC(ON);
+    MOTOR_SetSpeed(DEFAULTDUTY, DEFAULTSPEED);
+    currentDuty = DEFAULTSPEED;
 }
 /**
  * @func   funcHandle_StopRunFlag
@@ -73,46 +151,99 @@ void funcHandle_StartRunFlag(void)
  */
 void funcHandle_StopRunFlag(void)
 {
-    /* clear flag */
     stopRunFlag = 0;
-    MOTOR_SetSpeed(currentDuty, DEFAULTDUTY);    /* set defalut speed */
+    //IRF_Send(stopRun, sizeof(stopRun));
+    MOTOR_SetStop(currentDuty);
+    RELAY_AC(OFF);
 }
-
 /**
- * @func   funcHandle_SetSpeedMotorUpFlag
+ * @func   funcHandle_UpdownFloorFlag
  * @brief  None
  * @param  
  * @retval None
  */
-void funcHandle_SetSpeedMotorUpFlag(void)
+void funcHandle_UpdownFloorFlag(void)
 {
-    uint8_t desireDuty = currentDuty - 500;
-    /* turn off flag */
-    setSpeedMotorUpFlag = 0;
-    if(currentDuty>8000)
-    {
-        MOTOR_SetSpeed(currentDuty, desireDuty);
-        currentDuty = desireDuty;
-    }
+    updownFloorFlag = 0;
+    //IRF_Send(updownFloor, sizeof(updownFloor));
 }
 
 /**
- * @func   funcHandle_SetSpeedMotorDownFlag
+ * @func   funcHandle_GetStateMotorFlag
  * @brief  None
  * @param  
  * @retval None
  */
-void funcHandle_SetSpeedMotorDownFlag(void)
+void funcHandle_GetStateMotorFlag(void)
 {
-    uint8_t desireDuty = currentDuty + 500;
-    /* turn off flag */
-    setSpeedMotorUpFlag = 0;
-    if(currentDuty<15000)
-    {
-        MOTOR_SetSpeed(currentDuty, desireDuty);
-        currentDuty = desireDuty;
-    }
+    getStateMotorFlag = 0;
+    IRF_Send(getStateMotor, sizeof(getStateMotor));
 }
-/*******************************************************************************
- * EOF
- ******************************************************************************/
+/**
+ * @func   funcHandle_GetStateFloorFlag
+ * @brief  None
+ * @param  
+ * @retval None
+ */
+void funcHandle_GetStateFloorFlag(void)
+{
+    getStateFloorFlag = 0;
+    (getStateFloor, sizeof(getStateFloor));
+}
+
+/**
+ * @func   funcHandle_SetSpeedMotorFlag
+ * @brief  None
+ * @param  
+ * @retval None
+ */
+void funcHandle_SetSpeedMotorFlag(void)
+{
+    uint16_t desireDuty;
+    setSpeedMotorFlag = 0;
+    //IRF_Send(setSpeedMotor, sizeof(setSpeedMotor));
+    desireDuty = speedValue;
+    MOTOR_SetSpeed(currentDuty, desireDuty);
+    currentDuty = MOTOR_GetCurrentSpeed();
+}
+
+/**
+ * @func   funcHandle_GetAllStateFlag
+ * @brief  None
+ * @param  
+ * @retval None
+ */
+void funcHandle_GetAllStateFlag(void)
+{
+    getAllStateFlag = 0;
+    /* kiem tra xem co motor hay khong */
+    if(stateConnectFlag == 1)
+    {
+        getAllState[4] = CHECK_CONNECT_SUCCESS;
+    }else
+    {
+        getAllState[4] = CHECK_CONNECT_NOTSUCCESS;
+    }
+    if(stateMotorFlag == 1)
+    {
+        getAllState[5] = IS_HAVEMOTOR;
+    }else
+    {
+        getAllState[5] = IS_NOTMOTOR;
+    }
+    getAllState[6] = XOR_Caculator(getAllState, 0, sizeof(getAllState)-1);
+    IRF_Send(getAllState, sizeof(getAllState));
+}
+
+/**
+ * @func   funcHandle_ResetDeviceFlag
+ * @brief  None
+ * @param  
+ * @retval None
+ */
+void funcHandle_ResetDeviceFlag(void)
+{
+    resetDeviceFlag = 0;
+    //IRF_Send(resetDevice, sizeof(resetDevice));
+
+}

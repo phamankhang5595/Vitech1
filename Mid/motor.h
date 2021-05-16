@@ -10,15 +10,16 @@
 /*****************************************************************************/
 /*                              DEFINE                                      */
 /******************************************************************************/
-#define DEFAULTDUTY     533
-#define DEFAULTSPEED    490
+#define DEFAULTDUTY     5
+#define DEFAULTSPEED    10
+#define MAXDUTY         130
 /******************************************************************************/
 /*                              FUNCTION                                      */
 /******************************************************************************/
 
 void MOTOR_Config(void);
 void MOTOR_Init(uint16_t defaultDuty);
-uint16_t MOTOR_GetCurrentSpeed(u8 revSpeed);
+uint16_t MOTOR_GetCurrentSpeed(void);
 void MOTOR_SetSpeed(uint16_t currentDuty, uint16_t desireDuty);
-
+void MOTOR_SetStop(uint16_t currentDuty);
 #endif /* MOTOR_H */

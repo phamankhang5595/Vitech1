@@ -1,31 +1,49 @@
+/*
+ *      main_init.c
+ *
+ *      Created on: Dec 25, 2020
+ *      Author: Truong VV
+ */
+
 #include "N76E003.h"
 #include "SFR_Macro.h"
 #include "Function_Define.h"
-#include "uart.h"
-#include "delay.h"
-#include "relay.h"
-#include "motor.h"
-#include "pwm.h"
-#include "timer.h"
-#include "queue.h"
+//#include "tick.h"
 #include "irf.h"
+#include "motor.h"
+#include "relay.h"
+#include "floor.h"
 #include "main_init.h"
-/*******************************************************************************
- * Code
- ******************************************************************************/
-/*!
- * @brief 
- *
- * @param 
- * @param 
+
+/******************************************************************************/
+/*                              DECLARE                                      */
+/******************************************************************************/
+
+/******************************************************************************/
+/*                              FUNCTION                                      */
+/******************************************************************************/
+/**
+ * @func    main_Init
+ * @brief   None
+ * @param   None
  */
-void Main_Init()
+void MAIN_Init(void)
 {
     MOTOR_Config();
     RELAY_Config();
-    RELAY_AC(ON);
-    MOTOR_Init(DEFAULTDUTY);
+    MOTOR_Init(DEFAULTSPEED);
+    //FLOOR_Init();
+    //TICK_Init();
     IRF_Init();
-	MOTOR_SetSpeed(15000, 13500);
-    MOTOR_SetSpeed(13500, 15000);
+    ENABLE_AllInterrupt();
+}
+
+/**
+ * @func    MAIN_Proc
+ * @brief   None
+ * @param   None
+ */
+void MAIN_Proc(void)
+{
+    IRF_Proc(); 
 }

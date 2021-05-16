@@ -22,10 +22,10 @@ void TICK_Count(void)
     tickCount++;
    /*  WARNING
     Timer 2 should be used to avoid resetting registers TH0 and TL0 in the handler function */
-	TCON  &= ~(1 << 4);             // turn off timer
-	TL0 =  0xEA;                    //resetting
+    TCON  &= ~(1 << 4);             // turn off timer
+    TL0 =  0xEA;                    //resetting
     TH0 =  0xCB;    
-	TCON  |= (1 << 4);              //turn on timer
+    TCON  |= (1 << 4);              //turn on timer
 }
 
 static uint32_t Handle_Tick(void)
@@ -67,17 +67,17 @@ void SOFT_UART_SendByte(uint8_t dataByte)
         while (Handle_Tick() == i+1);
         if(buff[i] == 1)
         {
-					SET_HIGH();
+            SET_HIGH();
             //SET_LOW();
         }else
         {
-					SET_LOW();
+            SET_LOW();
            // SET_HIGH();
         }
     }
     while (Handle_Tick() == 9);
     SET_HIGH();
-		//SET_LOW();
+    //SET_LOW();
 }
 
 void SOFT_UART_SendData(uint8_t *str)
