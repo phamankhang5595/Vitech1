@@ -492,16 +492,6 @@
               <FilePath>..\Driver\delay.h</FilePath>
             </File>
             <File>
-              <FileName>gpio.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Driver\gpio.c</FilePath>
-            </File>
-            <File>
-              <FileName>gpio.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Driver\gpio.h</FilePath>
-            </File>
-            <File>
               <FileName>pwm.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Driver\pwm.c</FilePath>
@@ -512,26 +502,6 @@
               <FilePath>..\Driver\pwm.h</FilePath>
             </File>
             <File>
-              <FileName>soft_uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Driver\soft_uart.c</FilePath>
-            </File>
-            <File>
-              <FileName>soft_uart.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Driver\soft_uart.h</FilePath>
-            </File>
-            <File>
-              <FileName>timer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Driver\timer.c</FilePath>
-            </File>
-            <File>
-              <FileName>timer.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Driver\timer.h</FilePath>
-            </File>
-            <File>
               <FileName>uart.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Driver\uart.c</FilePath>
@@ -540,6 +510,16 @@
               <FileName>uart.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\Driver\uart.h</FilePath>
+            </File>
+            <File>
+              <FileName>gpio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Driver\gpio.c</FilePath>
+            </File>
+            <File>
+              <FileName>gpio.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Driver\gpio.h</FilePath>
             </File>
           </Files>
         </Group>

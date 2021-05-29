@@ -5,7 +5,8 @@
         "sfr_macro.h": "c",
         "gpio.h": "c",
         "function_define.h": "c",
-        "timer.h": "c"
+        "timer.h": "c",
+        "irfapp_main.h": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

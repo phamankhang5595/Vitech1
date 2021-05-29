@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.0.0   TIMER                                                             05/15/2021 18:01:59 PAGE 1   
+C51 COMPILER V9.60.0.0   TIMER                                                             05/22/2021 13:58:10 PAGE 1   
 
 
 C51 COMPILER V9.60.0.0, COMPILATION OF MODULE TIMER
@@ -62,7 +62,7 @@ line level    source
 *** WARNING C280 IN LINE 28 OF ..\Driver\timer.c: 'baudRate': unreferenced local variable
   52          
   53          /**
-C51 COMPILER V9.60.0.0   TIMER                                                             05/15/2021 18:01:59 PAGE 2   
+C51 COMPILER V9.60.0.0   TIMER                                                             05/22/2021 13:58:10 PAGE 2   
 
   54           * @func   PWM_Start
   55           * @brief  None
@@ -126,7 +126,7 @@ line level    source
  113           * @func   Timer0Overflow_ISR
  114           * @brief  None
  115           * @param  
-C51 COMPILER V9.60.0.0   TIMER                                                             05/15/2021 18:01:59 PAGE 3   
+C51 COMPILER V9.60.0.0   TIMER                                                             05/22/2021 13:58:10 PAGE 3   
 
  116           * @retval None
  117           */

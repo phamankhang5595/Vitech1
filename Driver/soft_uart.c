@@ -79,8 +79,3 @@ void SOFT_UART_SendByte(uint8_t dataByte)
     SET_HIGH();
     //SET_LOW();
 }
-
-void SOFT_UART_SendData(uint8_t *str)
-{
-
-}

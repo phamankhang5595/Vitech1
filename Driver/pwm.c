@@ -67,15 +67,15 @@ void PWM_SetDuty (uint16_t pwmDuty)
  * @param  
  * @retval None
  */
-void PWM_Stop(uint16_t pwmDuty)
-{
-    uint8_t i;
-    for(i = pwmDuty; i < PWM_MaxDuty; i=i+10)
-    {
-        PWM_SetDuty(i);
-        delay_ms(20);
-    }
-}
+//void PWM_Stop(uint16_t pwmDuty)
+//{
+//    uint8_t i;
+//    for(i = pwmDuty; i < PWM_MaxDuty; i=i+10)
+//    {
+//        PWM_SetDuty(i);
+//        delay_ms(20);
+//    }
+//}
 
 /**
  * @func   PWM_Start
@@ -83,12 +83,12 @@ void PWM_Stop(uint16_t pwmDuty)
  * @param  
  * @retval None
  */
-void PWM_Start(uint16_t pwmDuty)
-{
-    uint16_t i;
-    for(i = 500; i > pwmDuty; i=i-10)
-    {
-        PWM_SetDuty(i);
-        delay_ms(20);
-    }
-}
+//void PWM_Start(uint16_t pwmDuty)
+//{
+//    uint16_t i;
+//    for(i = 500; i > pwmDuty; i=i-10)
+//    {
+//        PWM_SetDuty(i);
+//        delay_ms(20);
+//    }
+//}

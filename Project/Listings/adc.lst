@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.0.0   ADC                                                               05/15/2021 18:01:59 PAGE 1   
+C51 COMPILER V9.60.0.0   ADC                                                               05/23/2021 14:56:18 PAGE 1   
 
 
 C51 COMPILER V9.60.0.0, COMPILATION OF MODULE ADC
@@ -13,7 +13,7 @@ line level    source
    3          #include "Function_Define.h"
    4          #include "adc.h"
    5          
-   6          void init_ADC()
+   6          void ADC_Init()
    7          {
    8   1          P17_Input_Mode;
    9   1          set_ADCEN;
@@ -22,20 +22,20 @@ line level    source
   12   1          AINDIDS |= (1<<0);
   13   1      }
   14          
-  15          static void enable_ADC()
+  15          void ADC_Enable()
   16          {
   17   1          clr_ADCF;
   18   1          ADCCON0 |= (1 << 6);
-  19   1          while (ADCF != 1);   
+  19   1          while (ADCF != 1);
   20   1      }
   21          
-  22          uint16_t readResultConvert()
+  22          uint16_t ADC_ReadResultConvert()
   23          {
   24   1          uint16_t lowByte = 0;
   25   1          uint16_t highByte = 0;
   26   1          uint16_t resutl = 0;
   27   1      
-  28   1          enable_ADC();
+  28   1          ADC_Enable();
   29   1          
   30   1          lowByte = ADCRL & 0x0F;
   31   1          highByte = ADCRH;

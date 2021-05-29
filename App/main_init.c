@@ -13,7 +13,9 @@
 #include "motor.h"
 #include "relay.h"
 #include "floor.h"
+#include "adc.h"
 #include "main_init.h"
+#include "gpio.h"
 
 /******************************************************************************/
 /*                              DECLARE                                      */
@@ -32,9 +34,10 @@ void MAIN_Init(void)
     MOTOR_Config();
     RELAY_Config();
     MOTOR_Init(DEFAULTSPEED);
-    //FLOOR_Init();
+    FLOOR_Init();
     //TICK_Init();
     IRF_Init();
+    GPIO_P10_Config();
     ENABLE_AllInterrupt();
 }
 
@@ -43,7 +46,7 @@ void MAIN_Init(void)
  * @brief   None
  * @param   None
  */
-void MAIN_Proc(void)
-{
-    IRF_Proc(); 
-}
+//void MAIN_Proc(void)
+//{
+//    IRF_Proc(); 
+//}

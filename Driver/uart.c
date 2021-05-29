@@ -119,29 +119,29 @@ u8 UART_RevData (void)
  * @param  
  * @retval None
  */
-void MODIFY_Hirc166(void)
-{
-    UINT8 xdata hircmap0,hircmap1;
-    UINT16 xdata trimvalue16bit;
-    // Check if power on reset, modify HIRC 
-    if ((PCON&SET_BIT4)==SET_BIT4)                
-    {
-        hircmap0 = RCTRIM0;
-        hircmap1 = RCTRIM1;
-        trimvalue16bit = ((hircmap0<<1)+(hircmap1&0x01));
-        trimvalue16bit = trimvalue16bit - 15;
-        hircmap1 = trimvalue16bit&0x01;
-        hircmap0 = trimvalue16bit>>1;
-        TA=0XAA;
-        TA=0X55;
-        RCTRIM0 = hircmap0;
-        TA=0XAA;
-        TA=0X55;
-        RCTRIM1 = hircmap1;
-        // Clear power on flag 
-        PCON &= CLR_BIT4;
-    }
-}
+//void MODIFY_Hirc166(void)
+//{
+//    UINT8 xdata hircmap0,hircmap1;
+//    UINT16 xdata trimvalue16bit;
+//    // Check if power on reset, modify HIRC 
+//    if ((PCON&SET_BIT4)==SET_BIT4)                
+//    {
+//        hircmap0 = RCTRIM0;
+//        hircmap1 = RCTRIM1;
+//        trimvalue16bit = ((hircmap0<<1)+(hircmap1&0x01));
+//        trimvalue16bit = trimvalue16bit - 15;
+//        hircmap1 = trimvalue16bit&0x01;
+//        hircmap0 = trimvalue16bit>>1;
+//        TA=0XAA;
+//        TA=0X55;
+//        RCTRIM0 = hircmap0;
+//        TA=0XAA;
+//        TA=0X55;
+//        RCTRIM1 = hircmap1;
+//        // Clear power on flag 
+//        PCON &= CLR_BIT4;
+//    }
+//}
 
 /**
  * @func   UART_CallBackInit

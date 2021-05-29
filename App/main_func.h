@@ -28,6 +28,6 @@ void funcHandle_GetStateMotorFlag(void);
 void funcHandle_GetStateFloorFlag(void);
 void funcHandle_SetSpeedMotorFlag(void);
 void funcHandle_GetAllStateFlag(void);
-void funcHandle_ResetDeviceFlag(void);
+//void funcHandle_ResetDeviceFlag(void);
 
 #endif /*MAINFUNCLIST_H*/

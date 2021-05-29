@@ -52,8 +52,9 @@ static void IRF_CallBackHandle(void)
 {
     static u8 revByte = 0;
     static u16 revByteCount = 0;
+    static checkError = 0;
     u8 revBuff[IRF_HEADER + IRF_BUFF_MAX + 1];
-    u8 sendError[5];
+    //u8 sendError[5];
     revByte = UART_RevData();
     revBuff[revByteCount++] = revByte;
     /* Check if cmd is stop then do not queue*/
@@ -71,7 +72,8 @@ static void IRF_CallBackHandle(void)
             }
             else
             {
-                UART_SendData("RJ");
+                checkError ++;
+                UART_SendData("RJ",2);
             }
             revByteCount = 0;
         }

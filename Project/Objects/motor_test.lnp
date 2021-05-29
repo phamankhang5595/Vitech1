@@ -9,11 +9,9 @@
 ".\Objects\relay.obj",
 ".\Objects\adc.obj",
 ".\Objects\delay.obj",
-".\Objects\gpio.obj",
 ".\Objects\pwm.obj",
-".\Objects\soft_uart.obj",
-".\Objects\timer.obj",
 ".\Objects\uart.obj",
+".\Objects\gpio.obj",
 ".\Objects\queue.obj",
 ".\Objects\xor.obj" 
 TO ".\Objects\motor_test" 

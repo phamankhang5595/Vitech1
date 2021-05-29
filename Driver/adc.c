@@ -3,7 +3,7 @@
 #include "Function_Define.h"
 #include "adc.h"
 
-void init_ADC()
+void ADC_Init()
 {
     P17_Input_Mode;
     set_ADCEN;
@@ -12,20 +12,20 @@ void init_ADC()
     AINDIDS |= (1<<0);
 }
 
-static void enable_ADC()
+void ADC_Enable()
 {
     clr_ADCF;
     ADCCON0 |= (1 << 6);
-    while (ADCF != 1);   
+    while (ADCF != 1);
 }
 
-uint16_t readResultConvert()
+uint16_t ADC_ReadResultConvert()
 {
     uint16_t lowByte = 0;
     uint16_t highByte = 0;
     uint16_t resutl = 0;
 
-    enable_ADC();
+    ADC_Enable();
     
     lowByte = ADCRL & 0x0F;
     highByte = ADCRH;

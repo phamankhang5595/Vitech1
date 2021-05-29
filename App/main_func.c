@@ -13,7 +13,9 @@
 #include "motor.h"
 #include "relay.h"
 #include "xor.h"
+#include "floor.h"
 #include "main_func.h"
+
 
 /******************************************************************************/
 /*                              DECLARE                                      */
@@ -40,11 +42,13 @@ extern volatile uint8_t setSpeedMotorFlag;
 extern volatile uint8_t getAllStateFlag;
 extern volatile uint8_t resetDeviceFlag;
 extern volatile uint8_t speedValue;
+extern volatile uint8_t floorValue;
 
 uint16_t currentDuty;
 uint8_t stateConnectFlag;
 uint8_t stateMotorFlag;
 uint8_t stateFloorFlag;
+
 
 /******************************************************************************/
 /*                              FUNCTION                                      */
@@ -56,10 +60,10 @@ uint8_t stateFloorFlag;
  * @param  
  * @retval None
  */
- void funcHandle_CurrentDuty()
- {
-     
- }
+// void funcHandle_CurrentDuty()
+// {
+//     
+// }
  
 void funcHandle_AllFlag(void)
 {
@@ -73,7 +77,7 @@ void funcHandle_AllFlag(void)
             
         }else if(checkConnectFlag == 1)
         {
-            funcHandle_CheckConnectFlag();
+            funcHandle_CheckConnectFlag();  
 
         }else if(startRunFlag == 1)
         {   
@@ -165,6 +169,7 @@ void funcHandle_StopRunFlag(void)
 void funcHandle_UpdownFloorFlag(void)
 {
     updownFloorFlag = 0;
+    FLOOR_UpOrDown(floorValue);
     //IRF_Send(updownFloor, sizeof(updownFloor));
 }
 
@@ -241,9 +246,9 @@ void funcHandle_GetAllStateFlag(void)
  * @param  
  * @retval None
  */
-void funcHandle_ResetDeviceFlag(void)
-{
-    resetDeviceFlag = 0;
-    //IRF_Send(resetDevice, sizeof(resetDevice));
+//void funcHandle_ResetDeviceFlag(void)
+//{
+//    resetDeviceFlag = 0;
+//    //IRF_Send(resetDevice, sizeof(resetDevice));
 
-}
+//}
