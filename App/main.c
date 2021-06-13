@@ -19,7 +19,7 @@
 #include "main_func.h"
 #include "main_init.h"
 #include "irfapp_main.h"
-#iinclude "irf.h"
+#include "irf.h"
 /*******************************************************************************
  * Definition
  ******************************************************************************/
@@ -27,13 +27,10 @@ uint16_t topLimitFloor=80;
 uint16_t botLimitFloor=10;
 void main(void)
 {
-//    MAIN_Init();
-//    while(1)
-//    {
-//        IRF_Proc();
-//        funcHandle_AllFlag();
-//    }
-    GPIO_P10_Config();
-    GPIO_P01_Config();
-    while(1);
+    MAIN_Init();
+    while(1)
+    {
+        IRF_Proc();
+        funcHandle_AllFlag();
+    }
 }

@@ -24,7 +24,6 @@
 QUEUEx_t    irf_CommandQueue;
 irf_Command_t irf_CommandBuff;
 extern volatile int checkStopCmd;
-char * buff_Command[10] = { "string1","string2","string3","string4"};
 /******************************************************************************/
 /*                            FUNCTIONS                              */
 /******************************************************************************/
@@ -75,14 +74,6 @@ static void IRF_CallBackHandle(void)
             if(revBuff[IRF_HEADER + revBuff[3]] == XOR_Caculator(revBuff, 0, IRF_HEADER + revBuff[3]))
             {
                 QUEUE_Push(&irf_CommandQueue, revBuff);
-                if (revBuff[0] == CHECK_CONNECT)
-                {
-                    QUEUE_Get(&irf_CommandQueue, (u8*)&irf_CommandBuff);
-                    if (irf_CommandBuff.buff)
-                    {
-                        
-                    }
-                }
             } else {
                 checkError ++;
                 UART_SendData("RJ",2);

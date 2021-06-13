@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.0.0   IRF                                                               06/13/2021 10:03:35 PAGE 1   
+C51 COMPILER V9.60.0.0   IRF                                                               06/13/2021 11:04:56 PAGE 1   
 
 
 C51 COMPILER V9.60.0.0, COMPILATION OF MODULE IRF
@@ -34,114 +34,104 @@ line level    source
   24          QUEUEx_t    irf_CommandQueue;
   25          irf_Command_t irf_CommandBuff;
   26          extern volatile int checkStopCmd;
-  27          char * buff_Command[10] = { "string1","string2","string3","string4"};
-  28          /******************************************************************************/
-  29          /*                            FUNCTIONS                              */
-  30          /******************************************************************************/
-  31          static void IRF_CallBackHandle(void);
-  32          
-  33          /**
-  34           * @func    IRF_Init
-  35           * @brief   None
-  36           * @param   None
-  37           */
-  38          void IRF_Init(void)
-  39          {
-  40   1          UART_Init(UART_BAUDRATE);
-  41   1          UART_CallBackInit(IRF_CallBackHandle);
-  42   1          QUEUE_Init(&irf_CommandQueue, (u8*)&irf_CommandBuff,\
-  43   1                      IRF_QUEUE_MAX, sizeof(irf_Command_t));
-  44   1          UART_Enable();
-  45   1      }
-  46          
-  47          static findCommandBuff(char *buff)
-  48          {
-  49   1      
-  50   1      }
-*** WARNING C280 IN LINE 47 OF ..\Mid\irf.c: 'buff': unreferenced local variable
-  51          
-  52          /**
-  53           * @func    IRF_CallBackHandle
-C51 COMPILER V9.60.0.0   IRF                                                               06/13/2021 10:03:35 PAGE 2   
+  27          /******************************************************************************/
+  28          /*                            FUNCTIONS                              */
+  29          /******************************************************************************/
+  30          static void IRF_CallBackHandle(void);
+  31          
+  32          /**
+  33           * @func    IRF_Init
+  34           * @brief   None
+  35           * @param   None
+  36           */
+  37          void IRF_Init(void)
+  38          {
+  39   1          UART_Init(UART_BAUDRATE);
+  40   1          UART_CallBackInit(IRF_CallBackHandle);
+  41   1          QUEUE_Init(&irf_CommandQueue, (u8*)&irf_CommandBuff,\
+  42   1                      IRF_QUEUE_MAX, sizeof(irf_Command_t));
+  43   1          UART_Enable();
+  44   1      }
+  45          
+  46          static findCommandBuff(char *buff)
+  47          {
+  48   1          
+  49   1      }
+*** WARNING C280 IN LINE 46 OF ..\Mid\irf.c: 'buff': unreferenced local variable
+  50          
+  51          /**
+  52           * @func    IRF_CallBackHandle
+  53           * @brief   None
+C51 COMPILER V9.60.0.0   IRF                                                               06/13/2021 11:04:56 PAGE 2   
 
-  54           * @brief   None
-  55           * @param   None
-  56           */
-  57          static void IRF_CallBackHandle(void)
-  58          {
-  59   1          static u8 revByte = 0;
-  60   1          static u16 revByteCount = 0;
-  61   1          static u8 checkError = 0;
-  62   1          int i=0;
-  63   1          u8 revBuff[IRF_HEADER + IRF_BUFF_MAX + 1];
-  64   1          u8 sendError[5];
-  65   1          revByte = UART_RevData();
-  66   1          revBuff[revByteCount++] = revByte;
-  67   1          /* Check if cmd is stop then do not queue*/
-  68   1          if (revBuff[0] == STOP_RUN)
-  69   1          {
-  70   2              checkStopCmd = 1;
-  71   2          }
-  72   1          if (revByteCount >= IRF_HEADER) {
-  73   2              if(revByteCount == (IRF_HEADER + revBuff[3] + 1))
-  74   2              {
-  75   3                  if(revBuff[IRF_HEADER + revBuff[3]] == XOR_Caculator(revBuff, 0, IRF_HEADER + revBuff[3]))
-  76   3                  {
-  77   4                      QUEUE_Push(&irf_CommandQueue, revBuff);
-  78   4                      if (revBuff[0] == CHECK_CONNECT)
-  79   4                      {
-  80   5                          QUEUE_Get(&irf_CommandQueue, (u8*)&irf_CommandBuff);
-  81   5                          if (irf_CommandBuff.buff)
-*** WARNING C276 IN LINE 81 OF ..\Mid\irf.c: constant in condition expression
-  82   5                          {
-  83   6                              
-  84   6                          }
-  85   5                      }
-  86   4                  } else {
-  87   4                      checkError ++;
-  88   4                      UART_SendData("RJ",2);
-  89   4                  }
-  90   3                  revByteCount = 0;
-  91   3              }
-  92   2          }
-  93   1      }
-*** WARNING C280 IN LINE 64 OF ..\Mid\irf.c: 'sendError': unreferenced local variable
-  94          
-  95          /**
-  96           * @func    IRF_Proc
-  97           * @brief   None
-  98           * @param   None
-  99           */
- 100          void IRF_Proc(void)
- 101          {
- 102   1          irf_Command_t irf_CommandBuff;
- 103   1          if(!QUEUE_Empty(&irf_CommandQueue))
- 104   1          {
- 105   2              QUEUE_Get(&irf_CommandQueue, (u8*)&irf_CommandBuff);
- 106   2              APP_CheckCommandExistAndExecutes(\
- 107   2                  irf_CommandBuff.command, irf_CommandBuff.type,\
- 108   2                  irf_CommandBuff.buff, irf_CommandBuff.length); 
- 109   2          }
- 110   1      }
- 111          
- 112          /**
- 113           * @func    IRF_Send
-C51 COMPILER V9.60.0.0   IRF                                                               06/13/2021 10:03:35 PAGE 3   
+  54           * @param   None
+  55           */
+  56          static void IRF_CallBackHandle(void)
+  57          {
+  58   1          static u8 revByte = 0;
+  59   1          static u16 revByteCount = 0;
+  60   1          static u8 checkError = 0;
+  61   1          int i=0;
+  62   1          u8 revBuff[IRF_HEADER + IRF_BUFF_MAX + 1];
+  63   1          u8 sendError[5];
+  64   1          revByte = UART_RevData();
+  65   1          revBuff[revByteCount++] = revByte;
+  66   1          /* Check if cmd is stop then do not queue*/
+  67   1          if (revBuff[0] == STOP_RUN)
+  68   1          {
+  69   2              checkStopCmd = 1;
+  70   2          }
+  71   1          if (revByteCount >= IRF_HEADER) {
+  72   2              if(revByteCount == (IRF_HEADER + revBuff[3] + 1))
+  73   2              {
+  74   3                  if(revBuff[IRF_HEADER + revBuff[3]] == XOR_Caculator(revBuff, 0, IRF_HEADER + revBuff[3]))
+  75   3                  {
+  76   4                      QUEUE_Push(&irf_CommandQueue, revBuff);
+  77   4                  } else {
+  78   4                      checkError ++;
+  79   4                      UART_SendData("RJ",2);
+  80   4                  }
+  81   3                  revByteCount = 0;
+  82   3              }
+  83   2          }
+  84   1      }
+*** WARNING C280 IN LINE 63 OF ..\Mid\irf.c: 'sendError': unreferenced local variable
+  85          
+  86          /**
+  87           * @func    IRF_Proc
+  88           * @brief   None
+  89           * @param   None
+  90           */
+  91          void IRF_Proc(void)
+  92          {
+  93   1          irf_Command_t irf_CommandBuff;
+  94   1          if(!QUEUE_Empty(&irf_CommandQueue))
+  95   1          {
+  96   2              QUEUE_Get(&irf_CommandQueue, (u8*)&irf_CommandBuff);
+  97   2              APP_CheckCommandExistAndExecutes(\
+  98   2                  irf_CommandBuff.command, irf_CommandBuff.type,\
+  99   2                  irf_CommandBuff.buff, irf_CommandBuff.length); 
+ 100   2          }
+ 101   1      }
+ 102          
+ 103          /**
+ 104           * @func    IRF_Send
+ 105           * @brief   None
+ 106           * @param   None
+ 107           */
+ 108          void IRF_Send(u8* buff, u8 length)
+ 109          {
+ 110   1          UART_SendData(buff, length);
+ 111   1      }
+*** WARNING C290 IN LINE 49 OF ..\Mid\irf.c: missing return value
 
- 114           * @brief   None
- 115           * @param   None
- 116           */
- 117          void IRF_Send(u8* buff, u8 length)
- 118          {
- 119   1          UART_SendData(buff, length);
- 120   1      }
-*** WARNING C290 IN LINE 50 OF ..\Mid\irf.c: missing return value
 
+C51 COMPILER V9.60.0.0   IRF                                                               06/13/2021 11:04:56 PAGE 3   
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    507    ----
-   CONSTANT SIZE    =     35    ----
-   XDATA SIZE       =     86    ----
+   CODE SIZE        =    442    ----
+   CONSTANT SIZE    =      3    ----
+   XDATA SIZE       =     56    ----
    PDATA SIZE       =   ----    ----
    DATA SIZE        =   ----    ----
    IDATA SIZE       =   ----    ----
@@ -149,4 +139,4 @@ MODULE INFORMATION:   STATIC OVERLAYABLE
 END OF MODULE INFORMATION.
 
 
-C51 COMPILATION COMPLETE.  4 WARNING(S),  0 ERROR(S)
+C51 COMPILATION COMPLETE.  3 WARNING(S),  0 ERROR(S)

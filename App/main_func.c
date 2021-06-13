@@ -193,7 +193,7 @@ void funcHandle_GetStateMotorFlag(void)
 void funcHandle_GetStateFloorFlag(void)
 {
     getStateFloorFlag = 0;
-    (getStateFloor, sizeof(getStateFloor));
+    IRF_Send(getStateFloor, sizeof(getStateFloor));
 }
 
 /**
@@ -225,15 +225,13 @@ void funcHandle_GetAllStateFlag(void)
     if(stateConnectFlag == 1)
     {
         getAllState[4] = CHECK_CONNECT_SUCCESS;
-    }else
-    {
+    }else {
         getAllState[4] = CHECK_CONNECT_NOTSUCCESS;
     }
     if(stateMotorFlag == 1)
     {
         getAllState[5] = IS_HAVEMOTOR;
-    }else
-    {
+    }else {
         getAllState[5] = IS_NOTMOTOR;
     }
     getAllState[6] = XOR_Caculator(getAllState, 0, sizeof(getAllState)-1);
