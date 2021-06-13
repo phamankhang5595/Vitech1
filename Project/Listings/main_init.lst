@@ -1,10 +1,11 @@
-C51 COMPILER V9.60.0.0   MAIN_INIT                                                         06/13/2021 11:04:55 PAGE 1   
+C51 COMPILER V9.60.0.0   MAIN_INIT                                                         06/13/2021 16:48:30 PAGE 1   
 
 
 C51 COMPILER V9.60.0.0, COMPILATION OF MODULE MAIN_INIT
 OBJECT MODULE PLACED IN .\Objects\main_init.obj
 COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE ..\App\main_init.c LARGE OPTIMIZE(0,SPEED) BROWSE INCDIR(..\App;..\Commo
-                    -n;..\Driver;..\Mid;..\Utilities) DEBUG OBJECTEXTEND PRINT(.\Listings\main_init.lst) OBJECT(.\Objects\main_init.obj)
+                    -n;..\Driver;..\Mid;..\Utilities) DEBUG OBJECTEXTEND PRINT(.\Listings\main_init.lst) TABS(2) OBJECT(.\Objects\main_init.o
+                    -bj)
 
 line level    source
 
@@ -61,8 +62,8 @@ line level    source
   51          //    IRF_Proc(); 
   52          //}
 
+C51 COMPILER V9.60.0.0   MAIN_INIT                                                         06/13/2021 16:48:30 PAGE 2   
 
-C51 COMPILER V9.60.0.0   MAIN_INIT                                                         06/13/2021 11:04:55 PAGE 2   
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
    CODE SIZE        =     25    ----

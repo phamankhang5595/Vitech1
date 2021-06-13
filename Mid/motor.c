@@ -44,7 +44,7 @@ void MOTOR_Init(uint16_t defaultDuty)
  */
 uint16_t MOTOR_GetCurrentSpeed(void)
 {
-    return ((PWM2H << 8) | (PWM2L));
+    return ((PWM0H << 8) | (PWM0L));
 }
 /**
  * @func    MOTOR_SetSpeed
@@ -59,14 +59,14 @@ void MOTOR_SetSpeed(uint16_t currentDuty, uint16_t desireDuty)
         for(i = currentDuty; i > desireDuty && checkStopCmd != 1; i--)
         {
             PWM_SetDuty(i);
-            delay_ms(20);
+            delay_ms(10);
         }
     }else
     {
         for(i = currentDuty; i < desireDuty && checkStopCmd != 1; i++)
         {
             PWM_SetDuty(i);
-            delay_ms(20);
+            delay_ms(10);
         }
     }
     checkStopCmd = 0;

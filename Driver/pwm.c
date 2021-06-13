@@ -32,7 +32,7 @@ void PWM_Init (void)
     PWMCON0 |= (1 << 4);    // Clear PWM 16BIT COUNTER
     PWM_IMDEPENDENT_MODE;
     PWM_CLOCK_DIV_16; */
-    P10_Quasi_Mode;
+    P12_Quasi_Mode;
     PWM0_P12_OUTPUT_ENABLE;
     PWM_IMDEPENDENT_MODE;
     PWM_EDGE_TYPE;

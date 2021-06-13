@@ -22,7 +22,7 @@
 #include "irf.h"
 
 QUEUEx_t    irf_CommandQueue;
-irf_Command_t irf_CommandBuff;
+irf_Command_t irf_CommandBuff[IRF_QUEUE_MAX];
 extern volatile int checkStopCmd;
 /******************************************************************************/
 /*                            FUNCTIONS                              */
@@ -68,7 +68,7 @@ static void IRF_CallBackHandle(void)
     {
         checkStopCmd = 1;
     }
-    if (revByteCount >= IRF_HEADER) {
+     if (revByteCount >= IRF_HEADER) {
         if(revByteCount == (IRF_HEADER + revBuff[3] + 1))
         {
             if(revBuff[IRF_HEADER + revBuff[3]] == XOR_Caculator(revBuff, 0, IRF_HEADER + revBuff[3]))

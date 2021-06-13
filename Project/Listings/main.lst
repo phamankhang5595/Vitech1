@@ -1,10 +1,10 @@
-C51 COMPILER V9.60.0.0   MAIN                                                              06/13/2021 11:04:55 PAGE 1   
+C51 COMPILER V9.60.0.0   MAIN                                                              06/13/2021 16:48:29 PAGE 1   
 
 
 C51 COMPILER V9.60.0.0, COMPILATION OF MODULE MAIN
 OBJECT MODULE PLACED IN .\Objects\main.obj
 COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE ..\App\main.c LARGE OPTIMIZE(0,SPEED) BROWSE INCDIR(..\App;..\Common;..\
-                    -Driver;..\Mid;..\Utilities) DEBUG OBJECTEXTEND PRINT(.\Listings\main.lst) OBJECT(.\Objects\main.obj)
+                    -Driver;..\Mid;..\Utilities) DEBUG OBJECTEXTEND PRINT(.\Listings\main.lst) TABS(2) OBJECT(.\Objects\main.obj)
 
 line level    source
 
@@ -26,24 +26,25 @@ line level    source
   16          #include "SFR_Macro.h"
   17          #include "Function_Define.h"
   18          #include "gpio.h"
-  19          #include "main_func.h"
-  20          #include "main_init.h"
-  21          #include "irfapp_main.h"
-  22          #include "irf.h"
-  23          /*******************************************************************************
-  24           * Definition
-  25           ******************************************************************************/
-  26          uint16_t topLimitFloor=80;
-  27          uint16_t botLimitFloor=10;
-  28          void main(void)
-  29          {
-  30   1          MAIN_Init();
-  31   1          while(1)
-  32   1          {
-  33   2              IRF_Proc();
-  34   2              funcHandle_AllFlag();
-  35   2          }
-  36   1      }
+  19          #include "motor.h"
+  20          #include "main_func.h"
+  21          #include "main_init.h"
+  22          #include "irfapp_main.h"
+  23          #include "irf.h"
+  24          /*******************************************************************************
+  25           * Definition
+  26           ******************************************************************************/
+  27          uint16_t topLimitFloor=80;
+  28          uint16_t botLimitFloor=10;
+  29          void main(void)
+  30          {
+  31   1          MAIN_Init();
+  32   1          while(1)
+  33   1          {
+  34   2              IRF_Proc();
+  35   2              funcHandle_AllFlag();
+  36   2          }
+  37   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE

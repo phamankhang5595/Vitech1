@@ -1,10 +1,10 @@
-C51 COMPILER V9.60.0.0   IRF                                                               06/13/2021 11:04:56 PAGE 1   
+C51 COMPILER V9.60.0.0   IRF                                                               06/13/2021 16:48:30 PAGE 1   
 
 
 C51 COMPILER V9.60.0.0, COMPILATION OF MODULE IRF
 OBJECT MODULE PLACED IN .\Objects\irf.obj
 COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE ..\Mid\irf.c LARGE OPTIMIZE(0,SPEED) BROWSE INCDIR(..\App;..\Common;..\D
-                    -river;..\Mid;..\Utilities) DEBUG OBJECTEXTEND PRINT(.\Listings\irf.lst) OBJECT(.\Objects\irf.obj)
+                    -river;..\Mid;..\Utilities) DEBUG OBJECTEXTEND PRINT(.\Listings\irf.lst) TABS(2) OBJECT(.\Objects\irf.obj)
 
 line level    source
 
@@ -32,7 +32,7 @@ line level    source
   22          #include "irf.h"
   23          
   24          QUEUEx_t    irf_CommandQueue;
-  25          irf_Command_t irf_CommandBuff;
+  25          irf_Command_t irf_CommandBuff[IRF_QUEUE_MAX];
   26          extern volatile int checkStopCmd;
   27          /******************************************************************************/
   28          /*                            FUNCTIONS                              */
@@ -62,7 +62,7 @@ line level    source
   51          /**
   52           * @func    IRF_CallBackHandle
   53           * @brief   None
-C51 COMPILER V9.60.0.0   IRF                                                               06/13/2021 11:04:56 PAGE 2   
+C51 COMPILER V9.60.0.0   IRF                                                               06/13/2021 16:48:30 PAGE 2   
 
   54           * @param   None
   55           */
@@ -81,7 +81,7 @@ line level    source
   68   1          {
   69   2              checkStopCmd = 1;
   70   2          }
-  71   1          if (revByteCount >= IRF_HEADER) {
+  71   1           if (revByteCount >= IRF_HEADER) {
   72   2              if(revByteCount == (IRF_HEADER + revBuff[3] + 1))
   73   2              {
   74   3                  if(revBuff[IRF_HEADER + revBuff[3]] == XOR_Caculator(revBuff, 0, IRF_HEADER + revBuff[3]))
@@ -126,12 +126,12 @@ line level    source
 *** WARNING C290 IN LINE 49 OF ..\Mid\irf.c: missing return value
 
 
-C51 COMPILER V9.60.0.0   IRF                                                               06/13/2021 11:04:56 PAGE 3   
+C51 COMPILER V9.60.0.0   IRF                                                               06/13/2021 16:48:30 PAGE 3   
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
    CODE SIZE        =    442    ----
    CONSTANT SIZE    =      3    ----
-   XDATA SIZE       =     56    ----
+   XDATA SIZE       =    227    ----
    PDATA SIZE       =   ----    ----
    DATA SIZE        =   ----    ----
    IDATA SIZE       =   ----    ----

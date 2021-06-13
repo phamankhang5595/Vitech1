@@ -142,7 +142,7 @@ void funcHandle_CheckConnectFlag(void)
 void funcHandle_StartRunFlag(void)
 {
     startRunFlag = 0;
-    //IRF_Send(startRun, sizeof(startRun));
+    IRF_Send(startRun, sizeof(startRun));
     RELAY_AC(ON);
     MOTOR_SetSpeed(DEFAULTDUTY, DEFAULTSPEED);
     currentDuty = DEFAULTSPEED;
@@ -206,7 +206,7 @@ void funcHandle_SetSpeedMotorFlag(void)
 {
     uint16_t desireDuty;
     setSpeedMotorFlag = 0;
-    //IRF_Send(setSpeedMotor, sizeof(setSpeedMotor));
+    IRF_Send(setSpeedMotor, sizeof(setSpeedMotor));
     desireDuty = speedValue;
     MOTOR_SetSpeed(currentDuty, desireDuty);
     currentDuty = MOTOR_GetCurrentSpeed();

@@ -1,10 +1,11 @@
-C51 COMPILER V9.60.0.0   MAIN_FUNC                                                         06/13/2021 11:04:55 PAGE 1   
+C51 COMPILER V9.60.0.0   MAIN_FUNC                                                         06/13/2021 16:48:30 PAGE 1   
 
 
 C51 COMPILER V9.60.0.0, COMPILATION OF MODULE MAIN_FUNC
 OBJECT MODULE PLACED IN .\Objects\main_func.obj
 COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE ..\App\main_func.c LARGE OPTIMIZE(0,SPEED) BROWSE INCDIR(..\App;..\Commo
-                    -n;..\Driver;..\Mid;..\Utilities) DEBUG OBJECTEXTEND PRINT(.\Listings\main_func.lst) OBJECT(.\Objects\main_func.obj)
+                    -n;..\Driver;..\Mid;..\Utilities) DEBUG OBJECTEXTEND PRINT(.\Listings\main_func.lst) TABS(2) OBJECT(.\Objects\main_func.o
+                    -bj)
 
 line level    source
 
@@ -61,9 +62,9 @@ line level    source
   51          
   52          
   53          /******************************************************************************/
-  54          /*                              FUNCTION                                      */
-C51 COMPILER V9.60.0.0   MAIN_FUNC                                                         06/13/2021 11:04:55 PAGE 2   
+C51 COMPILER V9.60.0.0   MAIN_FUNC                                                         06/13/2021 16:48:30 PAGE 2   
 
+  54          /*                              FUNCTION                                      */
   55          /******************************************************************************/
   56          
   57          /**
@@ -125,9 +126,9 @@ line level    source
  113          /**
  114           * @func   funcHandle_DeviceAnnounceFlag
  115           * @brief  None
- 116           * @param  
-C51 COMPILER V9.60.0.0   MAIN_FUNC                                                         06/13/2021 11:04:55 PAGE 3   
+C51 COMPILER V9.60.0.0   MAIN_FUNC                                                         06/13/2021 16:48:30 PAGE 3   
 
+ 116           * @param  
  117           * @retval None
  118           */
  119          void funcHandle_DeviceAnnounceFlag(void)
@@ -156,7 +157,7 @@ line level    source
  142          void funcHandle_StartRunFlag(void)
  143          {
  144   1          startRunFlag = 0;
- 145   1          //IRF_Send(startRun, sizeof(startRun));
+ 145   1          IRF_Send(startRun, sizeof(startRun));
  146   1          RELAY_AC(ON);
  147   1          MOTOR_SetSpeed(DEFAULTDUTY, DEFAULTSPEED);
  148   1          currentDuty = DEFAULTSPEED;
@@ -189,9 +190,9 @@ line level    source
  175          
  176          /**
  177           * @func   funcHandle_GetStateMotorFlag
- 178           * @brief  None
-C51 COMPILER V9.60.0.0   MAIN_FUNC                                                         06/13/2021 11:04:55 PAGE 4   
+C51 COMPILER V9.60.0.0   MAIN_FUNC                                                         06/13/2021 16:48:30 PAGE 4   
 
+ 178           * @brief  None
  179           * @param  
  180           * @retval None
  181           */
@@ -222,7 +223,7 @@ line level    source
  206          {
  207   1          uint16_t desireDuty;
  208   1          setSpeedMotorFlag = 0;
- 209   1          //IRF_Send(setSpeedMotor, sizeof(setSpeedMotor));
+ 209   1          IRF_Send(setSpeedMotor, sizeof(setSpeedMotor));
  210   1          desireDuty = speedValue;
  211   1          MOTOR_SetSpeed(currentDuty, desireDuty);
  212   1          currentDuty = MOTOR_GetCurrentSpeed();
@@ -253,9 +254,9 @@ line level    source
  237   1          getAllState[6] = XOR_Caculator(getAllState, 0, sizeof(getAllState)-1);
  238   1          IRF_Send(getAllState, sizeof(getAllState));
  239   1      }
- 240          
-C51 COMPILER V9.60.0.0   MAIN_FUNC                                                         06/13/2021 11:04:55 PAGE 5   
+C51 COMPILER V9.60.0.0   MAIN_FUNC                                                         06/13/2021 16:48:30 PAGE 5   
 
+ 240          
  241          /**
  242           * @func   funcHandle_ResetDeviceFlag
  243           * @brief  None
@@ -271,7 +272,7 @@ line level    source
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    547    ----
+   CODE SIZE        =    568    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =     62    ----
    PDATA SIZE       =   ----    ----

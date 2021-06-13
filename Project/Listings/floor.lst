@@ -1,10 +1,10 @@
-C51 COMPILER V9.60.0.0   FLOOR                                                             06/13/2021 11:04:56 PAGE 1   
+C51 COMPILER V9.60.0.0   FLOOR                                                             06/13/2021 16:48:30 PAGE 1   
 
 
 C51 COMPILER V9.60.0.0, COMPILATION OF MODULE FLOOR
 OBJECT MODULE PLACED IN .\Objects\floor.obj
 COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE ..\Mid\floor.c LARGE OPTIMIZE(0,SPEED) BROWSE INCDIR(..\App;..\Common;..
-                    -\Driver;..\Mid;..\Utilities) DEBUG OBJECTEXTEND PRINT(.\Listings\floor.lst) OBJECT(.\Objects\floor.obj)
+                    -\Driver;..\Mid;..\Utilities) DEBUG OBJECTEXTEND PRINT(.\Listings\floor.lst) TABS(2) OBJECT(.\Objects\floor.obj)
 
 line level    source
 
@@ -62,7 +62,7 @@ line level    source
   52   1          resutlAdc = ADC_ReadResultConvert();
   53   1          /*  Check Incline will increase or decrease*/
   54   1          if ( resutlAdc <  desireIncl)
-C51 COMPILER V9.60.0.0   FLOOR                                                             06/13/2021 11:04:56 PAGE 2   
+C51 COMPILER V9.60.0.0   FLOOR                                                             06/13/2021 16:48:30 PAGE 2   
 
   55   1          {
   56   2              dir = F_UP;

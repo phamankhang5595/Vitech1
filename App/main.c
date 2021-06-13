@@ -16,6 +16,7 @@
 #include "SFR_Macro.h"
 #include "Function_Define.h"
 #include "gpio.h"
+#include "motor.h"
 #include "main_func.h"
 #include "main_init.h"
 #include "irfapp_main.h"
