@@ -16,14 +16,15 @@
 #include "SFR_Macro.h"
 #include "Function_Define.h"
 #include "irfapp_main.h"
-#include "Irf.h"
 #include "uart.h"
 #include "queue.h"
 #include "xor.h"
+#include "irf.h"
 
 QUEUEx_t    irf_CommandQueue;
-irf_Command_t irf_CommandBuff[IRF_QUEUE_MAX];
+irf_Command_t irf_CommandBuff;
 extern volatile int checkStopCmd;
+char * buff_Command[10] = { "string1","string2","string3","string4"};
 /******************************************************************************/
 /*                            FUNCTIONS                              */
 /******************************************************************************/
@@ -38,9 +39,14 @@ void IRF_Init(void)
 {
     UART_Init(UART_BAUDRATE);
     UART_CallBackInit(IRF_CallBackHandle);
-    QUEUE_Init(&irf_CommandQueue, (u8*)irf_CommandBuff,\
+    QUEUE_Init(&irf_CommandQueue, (u8*)&irf_CommandBuff,\
                 IRF_QUEUE_MAX, sizeof(irf_Command_t));
     UART_Enable();
+}
+
+static findCommandBuff(char *buff)
+{
+    
 }
 
 /**
@@ -52,26 +58,32 @@ static void IRF_CallBackHandle(void)
 {
     static u8 revByte = 0;
     static u16 revByteCount = 0;
-    static checkError = 0;
+    static u8 checkError = 0;
+    int i=0;
     u8 revBuff[IRF_HEADER + IRF_BUFF_MAX + 1];
-    //u8 sendError[5];
+    u8 sendError[5];
     revByte = UART_RevData();
     revBuff[revByteCount++] = revByte;
     /* Check if cmd is stop then do not queue*/
-    if (revBuff[0] == 0x40)
+    if (revBuff[0] == STOP_RUN)
     {
         checkStopCmd = 1;
     }
-    if(revByteCount >= IRF_HEADER)
-    {
+    if (revByteCount >= IRF_HEADER) {
         if(revByteCount == (IRF_HEADER + revBuff[3] + 1))
         {
             if(revBuff[IRF_HEADER + revBuff[3]] == XOR_Caculator(revBuff, 0, IRF_HEADER + revBuff[3]))
             {
                 QUEUE_Push(&irf_CommandQueue, revBuff);
-            }
-            else
-            {
+                if (revBuff[0] == CHECK_CONNECT)
+                {
+                    QUEUE_Get(&irf_CommandQueue, (u8*)&irf_CommandBuff);
+                    if (irf_CommandBuff.buff)
+                    {
+                        
+                    }
+                }
+            } else {
                 checkError ++;
                 UART_SendData("RJ",2);
             }

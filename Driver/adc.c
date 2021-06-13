@@ -5,11 +5,12 @@
 
 void ADC_Init()
 {
-    P17_Input_Mode;
+    P05_Input_Mode;
     set_ADCEN;
     clr_ADCF;
-    ADCCON0 &= 0xF0;
-    AINDIDS |= (1<<0);
+    ADCCON0 &= 0xFF;
+    ADCCON0 |= 0x05;
+    AINDIDS |= (1<<4);
 }
 
 void ADC_Enable()

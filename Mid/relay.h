@@ -16,13 +16,13 @@
 #define ON                  1
 #define OFF                 0
 #define RELAY_AC_PORT       P1
-#define RELAY_UPDOWN_PORT   P0   
-#define RELAY_AC_PIN        5
-#define RELAY_UP_PIN        0   
-#define RELAY_DOWN_PIN      1
-#define RELAYAC_Init()      P15_PushPull_Mode
-#define RELAYUP_Init()      P00_PushPull_Mode
-#define RELAYDOWN_Init()    P01_PushPull_Mode
+#define RELAY_UPDOWN_PORT   P1
+#define RELAY_AC_PIN        4
+#define RELAY_UP_PIN        0
+#define RELAY_DOWN_PIN      3
+#define RELAYAC_Init()      P14_PushPull_Mode
+#define RELAYUP_Init()      P10_PushPull_Mode
+#define RELAYDOWN_Init()    P13_PushPull_Mode
 /******************************************************************************/
 /*                              FUNCTION                                      */
 /******************************************************************************/

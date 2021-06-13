@@ -32,8 +32,8 @@ void PWM_Init (void)
     PWMCON0 |= (1 << 4);    // Clear PWM 16BIT COUNTER
     PWM_IMDEPENDENT_MODE;
     PWM_CLOCK_DIV_16; */
-	P10_Quasi_Mode;
-    PWM2_P10_OUTPUT_ENABLE;
+    P10_Quasi_Mode;
+    PWM0_P12_OUTPUT_ENABLE;
     PWM_IMDEPENDENT_MODE;
     PWM_EDGE_TYPE;
     set_CLRPWM;                 /* Clear PWM 16 bit counter */
@@ -55,8 +55,8 @@ void PWM_SetDuty (uint16_t pwmDuty)
 {
     /* stop pwm */
     clr_PWMRUN;
-    PWM2H = (uint8_t)((pwmDuty & 0xFF00) >> 8);
-    PWM2L = (uint8_t)(pwmDuty & 0x00FF);
+    PWM0H = (uint8_t)((pwmDuty & 0xFF00) >> 8);
+    PWM0L = (uint8_t)(pwmDuty & 0x00FF);
     set_LOAD;
     set_PWMRUN;
 }

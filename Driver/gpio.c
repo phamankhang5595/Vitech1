@@ -6,21 +6,23 @@
 
 void GPIO_P10_Config()
 {
-    P10_Input_Mode;
+    P17_Input_Mode;
     Enable_INT_Port1;
-    Enable_BIT0_RasingEdge_Trig;
-    PICON |= (1 << 2);
+    Enable_BIT7_FallEdge_Trig;
+    //PICON |= (1 << 7);
     set_EPI;
     set_EA;
+    P17 = 1;
 }
 
 void GPIO_P01_Config()
 {
-    P01_PushPull_Mode;
+    P15_PushPull_Mode;
+    P15 = 0;
 }
 
 void PinInterrupt_ISR (void) interrupt 7
 {
-    clr_PIF0;
-    P01 ^= 1;
+    clr_PIF7;
+    P15 ^= 1;
 }
