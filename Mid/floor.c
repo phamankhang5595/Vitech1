@@ -2,12 +2,13 @@
 #include "SFR_Macro.h"
 #include "Function_Define.h"
 #include "adc.h"
+#include "gpio.h"
 #include "relay.h"
 #include "delay.h"
 #include "floor.h"
 
-extern uint16_t topLimitFloor;
-extern uint16_t botLimitFloor;
+uint16_t topLimitFloor;
+uint16_t botLimitFloor;
 uint16_t adc_retval[12];
 uint16_t resutlAdc;
 
@@ -22,9 +23,43 @@ static void get_adc_levels()
         adc_retval[i] = botLimitFloor + ( i * DELTA) / 12;
     }
 }
+
+void FLOOR_GetTopAndBotLimitValue(void)
+{
+
+    uint16_t newValue = 0;
+    uint16_t tempValue = 0;
+
+    delay_ms(1000);
+    RELAY_Up();
+    newValue = ADC_ReadResultConvert();
+    while (tempValue != newValue)
+    {
+        tempValue = newValue;
+        delay_us(1000);
+        newValue = ADC_ReadResultConvert();       
+    }
+    RELAY_UpReset();
+    topLimitFloor = tempValue;
+    delay_ms(10);
+
+    tempValue = 0;
+    RELAY_Down();
+    //newValue = ADC_ReadResultConvert();
+    while (tempValue != newValue)
+    {
+        tempValue = newValue;
+        delay_us(1000);
+        newValue = ADC_ReadResultConvert();       
+    }
+    RELAY_DownReset();
+    botLimitFloor = tempValue;
+}
+
 void FLOOR_Init(void)
 {
     ADC_Init();
+    GPIO_CallBackInit(FLOOR_GetTopAndBotLimitValue);
 }
 int FLOOR_UpOrDown(uint16_t desireIncl)
 {

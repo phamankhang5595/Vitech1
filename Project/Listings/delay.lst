@@ -1,10 +1,10 @@
-C51 COMPILER V9.60.0.0   DELAY                                                             06/13/2021 16:48:31 PAGE 1   
+C51 COMPILER V9.60.0.0   DELAY                                                             06/19/2021 13:57:51 PAGE 1   
 
 
 C51 COMPILER V9.60.0.0, COMPILATION OF MODULE DELAY
 OBJECT MODULE PLACED IN .\Objects\delay.obj
 COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE ..\Driver\delay.c LARGE OPTIMIZE(0,SPEED) BROWSE INCDIR(..\App;..\Common
-                    -;..\Driver;..\Mid;..\Utilities) DEBUG OBJECTEXTEND PRINT(.\Listings\delay.lst) TABS(2) OBJECT(.\Objects\delay.obj)
+                    -;..\Driver;..\Mid;..\Utilities) DEBUG OBJECTEXTEND PRINT(.\Listings\delay.lst) OBJECT(.\Objects\delay.obj)
 
 line level    source
 
@@ -36,7 +36,7 @@ line level    source
   26           */
   27          void delay_ms (uint16_t value)
   28          {
-  29   1        while(value)
+  29   1              while(value)
   30   1          {
   31   2              delay_us(1000);
   32   2              value--;
@@ -51,7 +51,7 @@ line level    source
   41           */
   42          void delay_us (uint16_t value)
   43          {
-  44   1        register uint16_t loops =  (uint16_t)(dly_const * value) ;
+  44   1              register uint16_t loops =  (uint16_t)(dly_const * value) ;
   45   1          
   46   1          while(loops)
   47   1          {
@@ -62,7 +62,7 @@ line level    source
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-C51 COMPILER V9.60.0.0   DELAY                                                             06/13/2021 16:48:31 PAGE 2   
+C51 COMPILER V9.60.0.0   DELAY                                                             06/19/2021 13:57:51 PAGE 2   
 
    CODE SIZE        =    105    ----
    CONSTANT SIZE    =   ----    ----

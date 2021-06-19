@@ -43,11 +43,6 @@ void IRF_Init(void)
     UART_Enable();
 }
 
-static findCommandBuff(char *buff)
-{
-    
-}
-
 /**
  * @func    IRF_CallBackHandle
  * @brief   None
@@ -60,7 +55,7 @@ static void IRF_CallBackHandle(void)
     static u8 checkError = 0;
     int i=0;
     u8 revBuff[IRF_HEADER + IRF_BUFF_MAX + 1];
-    u8 sendError[5];
+    //u8 sendError[5];
     revByte = UART_RevData();
     revBuff[revByteCount++] = revByte;
     /* Check if cmd is stop then do not queue*/

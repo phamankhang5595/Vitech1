@@ -48,7 +48,7 @@ uint16_t currentDuty;
 uint8_t stateConnectFlag;
 uint8_t stateMotorFlag;
 uint8_t stateFloorFlag;
-
+uint8_t programRun;
 
 /******************************************************************************/
 /*                              FUNCTION                                      */
@@ -118,7 +118,8 @@ void funcHandle_AllFlag(void)
  */
 void funcHandle_DeviceAnnounceFlag(void)
 {
-    
+    deviceAnnounceFlag = 0;
+    programRun = 1;
 }
 /**
  * @func   funcHandle_CheckConnectFlag
@@ -159,6 +160,7 @@ void funcHandle_StopRunFlag(void)
     //IRF_Send(stopRun, sizeof(stopRun));
     MOTOR_SetStop(currentDuty);
     RELAY_AC(OFF);
+    programRun = 0;
 }
 /**
  * @func   funcHandle_UpdownFloorFlag
