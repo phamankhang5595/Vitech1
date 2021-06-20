@@ -28,7 +28,7 @@
 /******************************************************************************/
 
 #define IRF_BUFF_MAX        5
-#define IRF_QUEUE_MAX       20
+#define IRF_QUEUE_MAX       5
 #define IRF_HEADER          4
 
 

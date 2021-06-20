@@ -27,7 +27,7 @@
 /*                     EXPORTED TYPES and DEFINITIONS                         */
 /******************************************************************************/
 
-#define UART_BAUDRATE           1200
+#define UART_BAUDRATE           9600
 typedef void (*type_UartCallBackFnc)(void);
 
 /******************************************************************************/

@@ -4,15 +4,20 @@
 #include "relay.h"
 #include "adc.h"
 #include "delay.h"
+#include "tick.h"
+#include "timer.h"
 #include "gpio.h"
 
 extern uint16_t topLimitFloor;
 extern uint16_t botLimitFloor;
 extern uint8_t programRun;
+uint32_t t1;
+uint32_t t2;
+boolen_t firstTime = NO;
 
 type_GpioCallBackFnc    p_gpioCallBack = NULL;
 
-void GPIO_P10_Config()
+void GPIO_getValueMode()
 {
     P17_Input_Mode;
     Enable_INT_Port1;
@@ -21,6 +26,7 @@ void GPIO_P10_Config()
     set_EPI;
     set_EA;
     P17 = 1;
+    //TIMER_CallBackInit(TICK_Count);
 }
 
 void GPIO_P01_Config()
@@ -37,11 +43,17 @@ void GPIO_CallBackInit(type_GpioCallBackFnc gpioCallBackFnc)
 void PinInterrupt_ISR (void) interrupt 7
 {
     clr_PIF7;
-    if (!programRun)
+    if (firstTime == NO)
     {
-        if(p_gpioCallBack != NULL)
+        t1 = Handle_Tick();
+        firstTime = YES;
+    }
+    t2 = Handle_Tick();
+    if (t2 - t1 > 5000)
+    {
+        if (p_gpioCallBack != NULL)
         {
             p_gpioCallBack();
-        }       
-    }      
+        }
+    }
 }

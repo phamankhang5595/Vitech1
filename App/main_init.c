@@ -8,7 +8,7 @@
 #include "N76E003.h"
 #include "SFR_Macro.h"
 #include "Function_Define.h"
-//#include "tick.h"
+#include "tick.h"
 #include "irf.h"
 #include "motor.h"
 #include "relay.h"
@@ -35,9 +35,9 @@ void MAIN_Init(void)
     RELAY_Config();
     MOTOR_Init(DEFAULTSPEED);
     FLOOR_Init();
-    //TICK_Init();
+    TICK_Init();
     IRF_Init();
-    GPIO_P10_Config();
+    GPIO_getValueMode();
     ENABLE_AllInterrupt();
 }
 

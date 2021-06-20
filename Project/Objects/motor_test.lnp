@@ -12,6 +12,8 @@
 ".\Objects\pwm.obj",
 ".\Objects\uart.obj",
 ".\Objects\gpio.obj",
+".\Objects\timer.obj",
+".\Objects\tick.obj",
 ".\Objects\queue.obj",
 ".\Objects\xor.obj" 
 TO ".\Objects\motor_test" 

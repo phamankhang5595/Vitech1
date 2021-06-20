@@ -5,14 +5,16 @@
 #include "gpio.h"
 #include "relay.h"
 #include "delay.h"
+#include "timer.h"
 #include "floor.h"
 
 uint16_t topLimitFloor;
 uint16_t botLimitFloor;
 uint16_t adc_retval[12];
 uint16_t resutlAdc;
+extern boolen_t firstTime;
 
-#define DELTA ((topLimitFloor - botLimitFloor))
+#define DELTA (topLimitFloor - botLimitFloor)
 #define ERR  (2)
 
 static void get_adc_levels()
@@ -24,24 +26,28 @@ static void get_adc_levels()
     }
 }
 
-void FLOOR_GetTopAndBotLimitValue(void)
+static void FLOOR_GetTopAndBotLimitValue(void)
 {
 
     uint16_t newValue = 0;
     uint16_t tempValue = 0;
 
-    delay_ms(1000);
+    if (firstTime == YES)
+    {
+        firstTime = NO;
+    }
+    
     RELAY_Up();
     newValue = ADC_ReadResultConvert();
     while (tempValue != newValue)
     {
         tempValue = newValue;
         delay_us(1000);
-        newValue = ADC_ReadResultConvert();       
+        newValue = ADC_ReadResultConvert();
     }
     RELAY_UpReset();
     topLimitFloor = tempValue;
-    delay_ms(10);
+    delay_ms(1000);
 
     tempValue = 0;
     RELAY_Down();
@@ -50,7 +56,7 @@ void FLOOR_GetTopAndBotLimitValue(void)
     {
         tempValue = newValue;
         delay_us(1000);
-        newValue = ADC_ReadResultConvert();       
+        newValue = ADC_ReadResultConvert();
     }
     RELAY_DownReset();
     botLimitFloor = tempValue;
@@ -61,6 +67,7 @@ void FLOOR_Init(void)
     ADC_Init();
     GPIO_CallBackInit(FLOOR_GetTopAndBotLimitValue);
 }
+
 int FLOOR_UpOrDown(uint16_t desireIncl)
 {
     int i;
@@ -86,27 +93,22 @@ int FLOOR_UpOrDown(uint16_t desireIncl)
     /* Get current value of adc*/
     resutlAdc = ADC_ReadResultConvert();
     /*  Check Incline will increase or decrease*/
-    if ( resutlAdc <  desireIncl)
-    {
+    if ( resutlAdc <  desireIncl) {
         dir = F_UP;
     }
-    else if( resutlAdc >= ( desireIncl - ERR ) && resutlAdc <= ( desireIncl + ERR ))
-    {
+    else if( resutlAdc >= ( desireIncl - ERR ) && resutlAdc <= ( desireIncl + ERR )) {
         return 0;
     }
-    else
-    {
+    else {
         dir = F_DOWN;
     }
 
-    switch (dir)
-    {
+    switch (dir) {
     case F_UP:
         RELAY_DownReset();
         delay_ms(10);
         RELAY_Up();
-        do
-        {
+        do {
             resutlAdc = ADC_ReadResultConvert();
         } while (resutlAdc < desireIncl - ERR);
 
@@ -117,8 +119,7 @@ int FLOOR_UpOrDown(uint16_t desireIncl)
         RELAY_UpReset();
         delay_ms(10);
         RELAY_Down();
-        do
-        {
+        do {
             resutlAdc = ADC_ReadResultConvert();
         } while (resutlAdc > desireIncl + ERR);
 

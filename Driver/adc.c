@@ -25,12 +25,13 @@ uint16_t ADC_ReadResultConvert()
     uint16_t lowByte = 0;
     uint16_t highByte = 0;
     uint16_t resutl = 0;
-
+    
     ADC_Enable();
     
     lowByte = ADCRL & 0x0F;
     highByte = ADCRH;
 
     resutl = (highByte << 4) | lowByte;
+
     return resutl;
 }

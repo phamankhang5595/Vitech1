@@ -35,5 +35,4 @@
 void delay_us(uint16_t  value);
 void delay_ms(uint16_t  value);
 
-
 #endif    /* DELAY_H_ */

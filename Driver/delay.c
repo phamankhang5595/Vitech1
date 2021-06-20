@@ -15,18 +15,12 @@
 #include "N76E003.h"
 #include "SFR_Macro.h"
 #include "Function_Define.h"
+#include "tick.h"
 #include "delay.h"
 
-
-/**
- * @func   delay_ms
- * @brief  None
- * @param  
- * @retval None
- */
 void delay_ms (uint16_t value)
 {
-	while(value)
+    while(value)
     {
         delay_us(1000);
         value--;

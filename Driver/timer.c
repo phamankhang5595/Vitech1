@@ -9,6 +9,7 @@
 #include "SFR_Macro.h"
 #include "Function_Define.h"
 #include "soft_uart.h"
+#include "gpio.h"
 #include "timer.h"
 
 /******************************************************************************/
@@ -25,7 +26,7 @@ type_TimerCallBackFnc p_timerCallBack;
  * @param  
  * @retval None
  */
-void TIMER_Init(TimerChanel channel,uint16_t baudRate)
+void TIMER_Init(TimerChanel channel)
 {
     switch (channel)
     {
@@ -33,8 +34,7 @@ void TIMER_Init(TimerChanel channel,uint16_t baudRate)
         CKCON |= (1 << 3); // clock source of Timer 0 is direct the system clock
         TMOD |= (1 << 0); // timer0 16bit
         //WARNING
-        // Timer 2 should be used to avoid resetting registers TH0 and TL0 in the handler function
-
+        // Timer 2 should be used to avoid resetting registers TH0 and TL0 in the 
         TL0 =  0xEA;  // = 65535 - 16000000/1200 = 52202
         TH0 =  0xCB;  // 65535 - 16000000/1200
         break;
@@ -47,7 +47,7 @@ void TIMER_Init(TimerChanel channel,uint16_t baudRate)
     default:
         break;
     }
-    TIMER_Disable(TIMER0);
+    TIMER_Disable();
 }
 
 /**
@@ -67,7 +67,7 @@ void TIMER_CallBackInit(type_TimerCallBackFnc pHandle)
  * @param  
  * @retval None
  */
-void TIMER_Enable(TimerChanel channel)
+static void TIMER_Enable_Select(TimerChanel channel)
 {
     switch (channel)
     {
@@ -85,13 +85,17 @@ void TIMER_Enable(TimerChanel channel)
     }
 }
 
+void TIMER_Enable(void)
+{
+    TIMER_Enable_Select(TIMER0);
+}
 /**
  * @func   PWM_Start
  * @brief  None
  * @param  
  * @retval None
  */
-void TIMER_Disable(TimerChanel channel)
+static void TIMER_Disable_Select(TimerChanel channel)
 {
     switch (channel)
     {
@@ -109,6 +113,10 @@ void TIMER_Disable(TimerChanel channel)
     }
 }
 
+void TIMER_Disable(void)
+{
+    TIMER_Disable_Select(TIMER0);
+}
 /**
  * @func   Timer0Overflow_ISR
  * @brief  None
