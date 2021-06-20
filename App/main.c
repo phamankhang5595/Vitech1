@@ -30,6 +30,7 @@
  ******************************************************************************/
 void getFloorLimitValue(void)
 {
+    int x =9;
     int timeout = 10000;
     while ((timeout--) && P17 == 0);
     if (timeout < 1)
