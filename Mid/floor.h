@@ -8,4 +8,5 @@ typedef enum{
 }directionFloor_t;
 void FLOOR_Init(void);
 int FLOOR_UpOrDown(uint16_t desireLevel);
+void FLOOR_GetTopAndBotLimitValue(void);
 #endif /* _FLOOR_H_*/

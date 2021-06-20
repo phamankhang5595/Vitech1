@@ -12,7 +12,6 @@ uint16_t topLimitFloor;
 uint16_t botLimitFloor;
 uint16_t adc_retval[12];
 uint16_t resutlAdc;
-extern boolen_t firstTime;
 
 #define DELTA (topLimitFloor - botLimitFloor)
 #define ERR  (2)
@@ -26,17 +25,11 @@ static void get_adc_levels()
     }
 }
 
-static void FLOOR_GetTopAndBotLimitValue(void)
+void FLOOR_GetTopAndBotLimitValue(void)
 {
 
     uint16_t newValue = 0;
     uint16_t tempValue = 0;
-
-    if (firstTime == YES)
-    {
-        firstTime = NO;
-    }
-    
     RELAY_Up();
     newValue = ADC_ReadResultConvert();
     while (tempValue != newValue)
@@ -65,7 +58,6 @@ static void FLOOR_GetTopAndBotLimitValue(void)
 void FLOOR_Init(void)
 {
     ADC_Init();
-    GPIO_CallBackInit(FLOOR_GetTopAndBotLimitValue);
 }
 
 int FLOOR_UpOrDown(uint16_t desireIncl)

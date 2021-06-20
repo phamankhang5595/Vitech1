@@ -21,17 +21,32 @@
 #include "main_init.h"
 #include "irfapp_main.h"
 #include "uart.h"
+#include "floor.h"
+#include "tick.h"
 #include "delay.h"
 #include "irf.h"
 /*******************************************************************************
  * Definition
  ******************************************************************************/
+void getFloorLimitValue(void)
+{
+    int timeout = 10000;
+    while ((timeout--) && P17 == 0);
+    if (timeout < 1)
+    {
+        FLOOR_GetTopAndBotLimitValue();
+    }   
+}
 
 void main(void)
-{
+{   
     MAIN_Init();
     while(1)
     {
+        if (!P17)
+        {
+            getFloorLimitValue();
+        }       
         IRF_Proc();
         funcHandle_AllFlag();
     }

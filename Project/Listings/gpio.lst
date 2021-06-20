@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.0.0   GPIO                                                              06/20/2021 15:27:16 PAGE 1   
+C51 COMPILER V9.60.0.0   GPIO                                                              06/20/2021 16:13:21 PAGE 1   
 
 
 C51 COMPILER V9.60.0.0, COMPILATION OF MODULE GPIO
@@ -20,61 +20,28 @@ line level    source
   10          
   11          extern uint16_t topLimitFloor;
   12          extern uint16_t botLimitFloor;
-  13          extern uint8_t programRun;
-  14          uint32_t t1;
-  15          uint32_t t2;
-  16          boolen_t firstTime = NO;
-  17          
-  18          type_GpioCallBackFnc    p_gpioCallBack = NULL;
-  19          
-  20          void GPIO_getValueMode()
-  21          {
-  22   1          P17_Input_Mode;
-  23   1          Enable_INT_Port1;
-  24   1          Enable_BIT7_FallEdge_Trig;
-  25   1          //PICON |= (1 << 7);
-  26   1          set_EPI;
-  27   1          set_EA;
-  28   1          P17 = 1;
-  29   1          //TIMER_CallBackInit(TICK_Count);
-  30   1      }
-  31          
-  32          void GPIO_P01_Config()
-  33          {
-  34   1          P15_PushPull_Mode;
-  35   1          P15 = 0;
-  36   1      }
-  37          
-  38          void GPIO_CallBackInit(type_GpioCallBackFnc gpioCallBackFnc)
-  39          {
-  40   1          p_gpioCallBack = gpioCallBackFnc;
-  41   1      }
-  42          
-  43          void PinInterrupt_ISR (void) interrupt 7
-  44          {
-  45   1          clr_PIF7;
-  46   1          if (firstTime == NO)
-  47   1          {
-  48   2              t1 = Handle_Tick();
-  49   2              firstTime = YES;
-  50   2          }
-  51   1          t2 = Handle_Tick();
-  52   1          if (t2 - t1 > 5000)
-  53   1          {
-  54   2              if (p_gpioCallBack != NULL)
-C51 COMPILER V9.60.0.0   GPIO                                                              06/20/2021 15:27:16 PAGE 2   
-
-  55   2              {
-  56   3                  p_gpioCallBack();
-  57   3              }
-  58   2          }
-  59   1      }
+  13          
+  14          void GPIO_getValueMode()
+  15          {
+  16   1          P17_Input_Mode;
+  17   1          // Enable_INT_Port1;
+  18   1          // Enable_BIT7_FallEdge_Trig;
+  19   1          // //PICON |= (1 << 7);
+  20   1          // set_EPI;
+  21   1          // set_EA;
+  22   1      }
+  23          
+  24          void GPIO_P01_Config()
+  25          {
+  26   1          P15_PushPull_Mode;
+  27   1          P15 = 0;
+  28   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    274    ----
+   CODE SIZE        =     16    ----
    CONSTANT SIZE    =   ----    ----
-   XDATA SIZE       =     15    ----
+   XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
    DATA SIZE        =   ----    ----
    IDATA SIZE       =   ----    ----
