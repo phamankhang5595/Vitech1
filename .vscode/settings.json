@@ -6,7 +6,8 @@
         "gpio.h": "c",
         "function_define.h": "c",
         "timer.h": "c",
-        "irfapp_main.h": "c"
+        "irfapp_main.h": "c",
+        "flash.h": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

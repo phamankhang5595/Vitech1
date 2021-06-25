@@ -6,6 +6,7 @@
 #include "relay.h"
 #include "delay.h"
 #include "timer.h"
+#include "flash.h"
 #include "floor.h"
 
 uint16_t topLimitFloor;
@@ -38,8 +39,9 @@ void FLOOR_GetTopAndBotLimitValue(void)
         delay_us(1000);
         newValue = ADC_ReadResultConvert();
     }
+    
     RELAY_UpReset();
-    topLimitFloor = tempValue;
+    FLASH_write(FLASH_ADDS_TOP_LIM_VAL, newValue);
     delay_ms(1000);
 
     tempValue = 0;
@@ -52,7 +54,7 @@ void FLOOR_GetTopAndBotLimitValue(void)
         newValue = ADC_ReadResultConvert();
     }
     RELAY_DownReset();
-    botLimitFloor = tempValue;
+    FLASH_write(FLASH_ADDS_BOT_LIM_VAL, newValue);
 }
 
 void FLOOR_Init(void)
@@ -70,7 +72,11 @@ int FLOOR_UpOrDown(uint16_t desireIncl)
     {
         return -1;
     }
+    /* Get value limit floor from FLASH*/
+    topLimitFloor = FLASH_read(FLASH_ADDS_TOP_LIM_VAL);
+    botLimitFloor = FLASH_read(FLASH_ADDS_BOT_LIM_VAL);
     /* Get adc value levels base on top limit and bottom limit*/
+    
     get_adc_levels();
 
     /* Convert incline from desire Level to adc value*/

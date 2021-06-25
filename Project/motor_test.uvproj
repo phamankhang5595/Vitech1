@@ -541,6 +541,16 @@
               <FileType>5</FileType>
               <FilePath>..\Driver\tick.h</FilePath>
             </File>
+            <File>
+              <FileName>flash.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Driver\flash.c</FilePath>
+            </File>
+            <File>
+              <FileName>flash.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Driver\flash.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

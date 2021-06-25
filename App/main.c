@@ -25,6 +25,7 @@
 #include "tick.h"
 #include "delay.h"
 #include "irf.h"
+#include "flash.h"
 /*******************************************************************************
  * Definition
  ******************************************************************************/
@@ -35,18 +36,18 @@ void getFloorLimitValue(void)
     if (timeout < 1)
     {
         FLOOR_GetTopAndBotLimitValue();
-    }   
+    }
 }
 
 void main(void)
-{   
+{
     MAIN_Init();
     while(1)
     {
         if (!P17)
         {
             getFloorLimitValue();
-        }       
+        }
         IRF_Proc();
         funcHandle_AllFlag();
     }
