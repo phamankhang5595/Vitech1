@@ -8,8 +8,8 @@ void ADC_Init()
     P05_Input_Mode;
     set_ADCEN;
     clr_ADCF;
-    ADCCON0 &= 0xFF;
-    ADCCON0 |= 0x05;
+    ADCCON0 &= ~0xFF;
+    ADCCON0 |= 0x04;
     AINDIDS |= (1<<4);
 }
 

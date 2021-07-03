@@ -24,6 +24,7 @@
 #include "floor.h"
 #include "tick.h"
 #include "delay.h"
+#include "adc.h"
 #include "irf.h"
 #include "flash.h"
 /*******************************************************************************
@@ -33,7 +34,7 @@ void getFloorLimitValue(void)
 {
     int timeout = 10000;
     while ((timeout--) && P17 == 0);
-    if (timeout < 1)
+    if (timeout < 2)
     {
         FLOOR_GetTopAndBotLimitValue();
     }
@@ -41,7 +42,9 @@ void getFloorLimitValue(void)
 
 void main(void)
 {
+    uint16_t val;
     MAIN_Init();
+
     while(1)
     {
         if (!P17)
@@ -51,4 +54,11 @@ void main(void)
         IRF_Proc();
         funcHandle_AllFlag();
     }
+//    while(1)
+//        {
+//            val = ADC_ReadResultConvert();
+//            UART_SendByte((val >> 4)& 0xff);
+//            UART_SendByte(val & 0x0f);
+//            delay_ms(1000);
+//        }
 }

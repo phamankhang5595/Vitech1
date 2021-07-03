@@ -27,11 +27,7 @@
  */
 void PWM_Init (void)
 {
-/*  
-    PIOCON0 |= (1 << 2);    // P10 is pin PWM output
-    PWMCON0 |= (1 << 4);    // Clear PWM 16BIT COUNTER
-    PWM_IMDEPENDENT_MODE;
-    PWM_CLOCK_DIV_16; */
+
     P12_Quasi_Mode;
     PWM0_P12_OUTPUT_ENABLE;
     PWM_IMDEPENDENT_MODE;

@@ -5,7 +5,8 @@
 
 #define PAGE_ERASE_AP 0x22
 #define BYTE_PROGRAM_AP 0x21
-//volatile unsigned char code Data_Flash[128] _at_ 0x3700;
+volatile unsigned char code Data_Flash[128] _at_ 0x3700;
+
 static void FLASH_enable_IAP_mode()
 {
     TA = 0Xaa;
@@ -58,7 +59,7 @@ void FLASH_write(uint16_t add, uint16_t dt)
 {
     FLASH_enable_IAP_mode();
     FLASH_enable_APROM_update();
-    FLASH_erasePage(add);
+    //FLASH_erasePage(add);
     FLASH_writeToAdd(add, (dt >> 8) & 0xff);
     FLASH_writeToAdd(add + 1, dt & 0xff);
     FLASH_disable_APROM_update();
@@ -66,5 +67,18 @@ void FLASH_write(uint16_t add, uint16_t dt)
 }
 uint16_t FLASH_read(uint16_t add)
 {
-    return add;
+    uint16_t i;
+    uint16_t val;
+    uint8_t highVal;
+    uint8_t lowVal;
+    for ( i = 0; i < 128; i++)
+    {
+        if (add == (uint16_t)&Data_Flash[i])
+        {
+            highVal = Data_Flash[i];
+            lowVal  = Data_Flash[i+1];
+        }
+        val = (highVal << 8) | lowVal;
+    }
+    return val;
 }

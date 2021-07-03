@@ -15,14 +15,13 @@ uint16_t adc_retval[12];
 uint16_t resutlAdc;
 
 #define DELTA (topLimitFloor - botLimitFloor)
-#define ERR  (2)
 
 static void get_adc_levels()
 {
     int i;
     for ( i = 0; i < 12; i++)
     {
-        adc_retval[i] = botLimitFloor + ( i * DELTA) / 12;
+        adc_retval[i] = botLimitFloor + i * (DELTA / 12);
     }
 }
 
@@ -32,11 +31,12 @@ void FLOOR_GetTopAndBotLimitValue(void)
     uint16_t newValue = 0;
     uint16_t tempValue = 0;
     RELAY_Up();
+    delay_ms(50);
     newValue = ADC_ReadResultConvert();
     while (tempValue != newValue)
     {
         tempValue = newValue;
-        delay_us(1000);
+        delay_ms(100);
         newValue = ADC_ReadResultConvert();
     }
     
@@ -50,16 +50,24 @@ void FLOOR_GetTopAndBotLimitValue(void)
     while (tempValue != newValue)
     {
         tempValue = newValue;
-        delay_us(1000);
+        delay_ms(100);
         newValue = ADC_ReadResultConvert();
     }
     RELAY_DownReset();
     FLASH_write(FLASH_ADDS_BOT_LIM_VAL, newValue);
+    
+    /**/
 }
 
 void FLOOR_Init(void)
 {
     ADC_Init();
+    topLimitFloor = FLASH_read(FLASH_ADDS_TOP_LIM_VAL);
+    botLimitFloor = FLASH_read(FLASH_ADDS_BOT_LIM_VAL);
+    if (topLimitFloor != 0xFFFF && botLimitFloor != 0xFFFF)
+    {
+        get_adc_levels();
+    }
 }
 
 int FLOOR_UpOrDown(uint16_t desireIncl)
@@ -72,14 +80,7 @@ int FLOOR_UpOrDown(uint16_t desireIncl)
     {
         return -1;
     }
-    /* Get value limit floor from FLASH*/
-    topLimitFloor = FLASH_read(FLASH_ADDS_TOP_LIM_VAL);
-    botLimitFloor = FLASH_read(FLASH_ADDS_BOT_LIM_VAL);
-    /* Get adc value levels base on top limit and bottom limit*/
-    
-    get_adc_levels();
 
-    /* Convert incline from desire Level to adc value*/
     for (i = 0; i < 12; i++)
     {
         if (desireIncl == incline_level[i])
@@ -94,7 +95,7 @@ int FLOOR_UpOrDown(uint16_t desireIncl)
     if ( resutlAdc <  desireIncl) {
         dir = F_UP;
     }
-    else if( resutlAdc >= ( desireIncl - ERR ) && resutlAdc <= ( desireIncl + ERR )) {
+    else if( resutlAdc >= desireIncl && resutlAdc <= desireIncl ) {
         return 0;
     }
     else {
@@ -108,7 +109,7 @@ int FLOOR_UpOrDown(uint16_t desireIncl)
         RELAY_Up();
         do {
             resutlAdc = ADC_ReadResultConvert();
-        } while (resutlAdc < desireIncl - ERR);
+        } while (resutlAdc < desireIncl);
 
         /* Reach desireIncl*/
         RELAY_UpReset();
@@ -119,7 +120,7 @@ int FLOOR_UpOrDown(uint16_t desireIncl)
         RELAY_Down();
         do {
             resutlAdc = ADC_ReadResultConvert();
-        } while (resutlAdc > desireIncl + ERR);
+        } while (resutlAdc > desireIncl);
 
         /* Reach desireIncl*/
         RELAY_DownReset();
