@@ -104,3 +104,10 @@ void IRF_Send(u8* buff, u8 length)
 {
     UART_SendData(buff, length);
 }
+
+void IRF_QueueClear()
+{
+    irf_CommandQueue.in = 0;
+    irf_CommandQueue.out = 0;
+    irf_CommandQueue.count = 0;
+}

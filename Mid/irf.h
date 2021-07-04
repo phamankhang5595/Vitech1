@@ -53,4 +53,5 @@ void IRF_Proc(void);
 
 void IRF_Send(u8* buff, u8 length);
 
+void IRF_QueueClear();
 #endif	/* IRF_H_ */

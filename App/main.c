@@ -27,6 +27,7 @@
 #include "adc.h"
 #include "irf.h"
 #include "flash.h"
+#include <stdio.h>
 /*******************************************************************************
  * Definition
  ******************************************************************************/
@@ -54,11 +55,4 @@ void main(void)
         IRF_Proc();
         funcHandle_AllFlag();
     }
-//    while(1)
-//        {
-//            val = ADC_ReadResultConvert();
-//            UART_SendByte((val >> 4)& 0xff);
-//            UART_SendByte(val & 0x0f);
-//            delay_ms(1000);
-//        }
 }

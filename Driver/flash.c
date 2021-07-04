@@ -32,7 +32,7 @@ static void FLASH_erasePage(uint16_t add)
     IAPTRG |= 0x01;
 }
 
-static void FLASH_writeToAdd(uint16_t add, uint8_t dt)
+static void FLASH_writeToAddress(uint16_t add, uint8_t dt)
 {  
     IAPCN = BYTE_PROGRAM_AP;
     IAPAH = (add >> 8) & 0xff;
@@ -60,8 +60,8 @@ void FLASH_write(uint16_t add, uint16_t dt)
     FLASH_enable_IAP_mode();
     FLASH_enable_APROM_update();
     //FLASH_erasePage(add);
-    FLASH_writeToAdd(add, (dt >> 8) & 0xff);
-    FLASH_writeToAdd(add + 1, dt & 0xff);
+    FLASH_writeToAddress(add, (dt >> 8) & 0xff);
+    FLASH_writeToAddress(add + 1, dt & 0xff);
     FLASH_disable_APROM_update();
     FLASH_disable_IAP_mode();
 }

@@ -156,7 +156,8 @@ void funcHandle_StopRunFlag(void)
 {
     stopRunFlag = 0;
     //IRF_Send(stopRun, sizeof(stopRun));
-    MOTOR_SetStop(currentDuty);
+    IRF_QueueClear();
+    MOTOR_SetStop(currentDuty);   
     RELAY_AC(OFF);
 }
 /**
