@@ -21,8 +21,8 @@ void GPIO_getValueMode()
     // set_EA;
 }
 
-void GPIO_P01_Config()
-{
-    P15_PushPull_Mode;
-    P15 = 0;
-}
+//void GPIO_P01_Config()
+//{
+//    P15_PushPull_Mode;
+//    P15 = 0;
+//}

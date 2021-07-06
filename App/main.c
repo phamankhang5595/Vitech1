@@ -43,7 +43,6 @@ void getFloorLimitValue(void)
 
 void main(void)
 {
-    uint16_t val;
     MAIN_Init();
 
     while(1)
