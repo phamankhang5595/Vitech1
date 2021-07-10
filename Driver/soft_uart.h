@@ -1,3 +1,10 @@
+/* 
+Copyright (c) Jul 2021
+ * Company: VITECH Solution
+ * Group: 
+ * Author: Bui Xuan Hung 
+*/
+
 #ifndef _SOFT_UART_H_
 #define _SOFT_UART_H_
 

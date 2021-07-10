@@ -1,17 +1,10 @@
-/*
- * Copyright (c) 2021
- * Team, JSC.
- * All Rights Reserved
- *
- *
- * Description:
- *
- * Author: Truongvv
- *
- * Last Changed By:  $Author: Truongvv $
- * Revision:         $Revision: 1.0 $
- * Last Changed:     $Date: x/x/xxxx $
- */
+/* 
+Copyright (c) Jul 2021
+ * Company: VITECH Solution
+ * Group: 
+ * Author: Bui Xuan Hung 
+*/
+
 
 #ifndef UART_H_
 

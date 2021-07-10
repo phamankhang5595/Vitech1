@@ -1,9 +1,10 @@
-/*
- *  main_init.h
- *
- *  Created on: Dec 25, 2020
- *      Author: Truong VV
- */
+/* 
+Copyright (c) Jul 2021
+ * Company: VitechSolution
+ * Group: 
+ * Author: Bui Xuan Hung 
+*/
+
 
 #ifndef MAIN_INIT_H
 #define MAIN_INIT_H
@@ -19,3 +20,4 @@ void MAIN_Init(void);
 void MAIN_Proc(void);
 
 #endif /*MAIN_INIT_H*/
+

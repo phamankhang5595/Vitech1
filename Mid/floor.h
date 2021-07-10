@@ -1,3 +1,10 @@
+/* 
+Copyright (c) Jul 2021
+ * Company: VITECH Solution
+ * Group: 
+ * Author: Bui Xuan Hung 
+*/
+
 #ifndef _FLOOR_H_
 #define _FLOOR_H_
 

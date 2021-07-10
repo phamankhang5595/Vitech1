@@ -1,9 +1,10 @@
-/*
- *  xor.h
- *
- *  Created on: Dec 25, 2020
- *      Author: Truong VV
- */
+/* 
+Copyright (c) Jul 2021
+ * Company: VITECH Solution
+ * Group: 
+ * Author: Bui Xuan Hung 
+*/
+
 
 #ifndef _XOR_H
 #define _XOR_H

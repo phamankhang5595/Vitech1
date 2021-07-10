@@ -1,15 +1,18 @@
-/*
- *      irfapp_main.c
- *
- *      Created on: Dec 25, 2020
- *      Author: Truong VV
- */
+/* 
+Copyright (c) Jul 2021
+ * Company: VITECH Solution
+ * Group: 
+ * Author: Bui Xuan Hung 
+*/
 
 #include "N76E003.h"
 #include "SFR_Macro.h"
 #include "Function_Define.h"
 #include "irfapp_main.h"
 
+/******************************************************************************
+*__________________________________VARIABLES___________________________________*
+******************************************************************************/
 
 volatile uint8_t deviceAnnounceFlag = 0;
 volatile uint8_t checkConnectFlag = 0;
@@ -24,9 +27,10 @@ volatile uint8_t resetDeviceFlag = 0;
 volatile uint8_t speedValue = 0;
 volatile uint8_t floorValue = 1;
 
-/******************************************************************************/
-/*                              FUNCTION                                      */
-/******************************************************************************/
+/******************************************************************************
+*__________________________________FUNCTIONS___________________________________*
+******************************************************************************/
+
 static void APP_DeviceAnnounce();
 
 static void APP_CheckConnect();

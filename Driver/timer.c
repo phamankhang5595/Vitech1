@@ -1,9 +1,10 @@
-/*
- *  time.c
- *
- *  Created on: Dec 25, 2020
- *      Author: Truong VV
- */
+/* 
+Copyright (c) Jul 2021
+ * Company: VITECH Solution
+ * Group: 
+ * Author: Bui Xuan Hung 
+*/
+
 
 #include "N76E003.h"
 #include "SFR_Macro.h"
